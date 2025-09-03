@@ -6,6 +6,12 @@
   navigation: auto;
 }
 
+@layer components {
+  .border-secondary {
+    @apply border-white/15;
+  }
+}
+
 * {
   /* desktop-text */
   font-family: "Helvetica Neue";

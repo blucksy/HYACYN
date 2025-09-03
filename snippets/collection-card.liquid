@@ -1,12 +1,6 @@
-<a href="{{ collection.url }}">
-  <div class="outer w-full">
+
+  <a   href="{{ collection.url }}" class="outer w-full bg-black text-white">
     {% comment %} Image or  collection.image whichever is set {% endcomment %}
-    {% assign new_image = collection.image | default: image %}
+   <p class="mx-auto my-auto">SHOP {{collection.title}}</p>
+  </a>
 
-
-    <div class="aspect-w-3 aspect-h-2 z-0">
-      {% render 'image', image: new_image, class: 'w-full h-full object-cover' %}
-    </div>
-
-  </div>
-</a>

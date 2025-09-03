@@ -1,18 +1,25 @@
-{% render 'product-shelf', collection: section.settings.collection, title: section.settings.title %}
+{{
+  section.settings.product | product_img_url: 'master' | img_tag: 'w-full h-auto object-cover'
+}}
+
 
 {% schema %}
 {
   "name": "Product Row",
   "settings": [
     {
-      "type": "text",
-      "id": "title",
-      "label": "Title"
+      "type": "product",
+      "id": "product",
+      "label": "Product"
     },
+    // number of photos 1,2,3
     {
-      "type": "collection",
-      "id": "collection",
-      "label": "Collection"
+      "type": "number",
+      "id": "photo_count",
+      "label": "Number of Photos",
+      "min": 1,
+      "max": 3,
+      "default": 1
     }
   ],
   "presets": [
