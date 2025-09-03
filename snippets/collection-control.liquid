@@ -1,0 +1,79 @@
+<collection-control class="fixed bottom-[32px] fixed-center  w-[200px] z-30 ">
+  <div class="flex text-white bg-twingreen justify-between px-[12] py-[8px]">
+    <button id="collection-filter-toggle" class="font-xs">Filter</button>
+    <button id="collection-sort-toggle" class="font-xs">Sort</button>
+  </div>
+
+  {% liquid
+    assign has_active_filter = false
+    for filter in collection.filters
+      for value in filter.values
+        if value.active
+          assign has_active_filter = true
+        endif
+      endfor
+    endfor
+  %}
+  <div
+    class="bg-white pt-[10px]  flex-col gap-[10px] pb-[5px] hidden open:flex"
+    id="collection-filter"
+    {% if has_active_filter %}
+      open
+    {% endif %}
+  >
+    {% for filter in collection.filters %}
+      <div class="flex flex-col pt-[4px] pb-[3px] px-[10px] gap-[8px] ">
+        <p class="font-xs">{{ filter.label }}</p>
+
+        <div class="flex flex-wrap gap-[4px]">
+          {% for value in filter.values %}
+            {% unless value.count == 0 %}
+              <button
+                id="filter-button"
+                class="sort-item"
+                {% if value.active %}
+                  open
+                {% endif %}
+                data-filter="{{ filter.param_name }}"
+                data-value="{{ value.value }}"
+              >
+                <p class="font-xs">{{ value.label }}</p>
+              </button>
+            {% endunless %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="bg-white pt-[10px] flex-col gap-[8px] px-[10px] pb-[5px] hidden open:flex" id="collection-sort">
+    <p class="font-xs">Sort by</p>
+
+    {% assign sort_values = 'title-ascending,title-descending,price-ascending,price-descending,best-selling,created-descending'
+      | split: ','
+    %}
+    {% assign sort_labels = 'A-Z,Z-A,Price (asc),Price (desc),Best Selling,Latest' | split: ',' %}
+
+    {% assign current_sort = collection.sort_by | default: 'created-descending' %}
+
+    <div class="gap-[4px] flex flex-wrap">
+      {% for value in sort_values %}
+        {% assign index = forloop.index0 %}
+        {% assign label = sort_labels[index] %}
+        <button
+          id="sort-button"
+          class="sort-item"
+          data-sort="{{ value }}"
+          {% if value == current_sort %}
+            open
+          {% endif %}
+        >
+          <p class="font-xs">{{ label }}</p>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+</collection-control>
+
+<script>
+  console.log({{ collection | json  }}, "whooo")
+</script>

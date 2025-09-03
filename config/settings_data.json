@@ -1,0 +1,75 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "banner_text": "Free shipping on orders over $100",
+    "default_size_chart": "[{\"1\":\"size\",\"2\":\"US\",\"3\":\"chest\",\"4\":\"waist\",\"5\":\"hip\"},{\"1\":\"OS\",\"2\":\"One Size\",\"3\":\"48”\",\"4\":\"48”\",\"5\":\"48”\"},{\"1\":\"XS\",\"2\":\"0-2\",\"3\":\"31-32\\\"\",\"4\":\"25-26\\\"\",\"5\":\"35-36\\\"\"},{\"1\":\"S\",\"2\":\"4-6\",\"3\":\"33-34\\\"\",\"4\":\"27-28\\\"\",\"5\":\"37.5-38.5\\\"\"},{\"1\":\"M\",\"2\":\"8-10\",\"3\":\"35-37\\\"\",\"4\":\"29-30\\\"\",\"5\":\"39.5-40.5\\\"\"},{\"1\":\"L\",\"2\":\"12-14\",\"3\":\"38-40\\\"\",\"4\":\"32-33\\\"\",\"5\":\"42-43.5\\\"\"},{\"1\":\"XL\",\"2\":\"16-18\",\"3\":\"42-44\\\"\",\"4\":\"\\t 35- 37\\\"\",\"5\":\"45-47\\\"\"},{\"1\":\"2XL\",\"2\":\"18-20\",\"3\":\"46-48\\\"\",\"4\":\"39-40”\",\"5\":\"48-49”\"},{\"1\":\"3XL\",\"2\":\"22-24\",\"3\":\"50-52\\\"\",\"4\":\"41-42”\",\"5\":\"51-53”\"}]",
+    "active_collection": "mainline",
+    "default_shipping_info": "Please allow 7-10 days for tracking information and shipping. Thank you for your patience.",
+    "default_exchange_info": "All items are Final Sale due to the limited nature of the product. If we make a mistake with the order, we will always take full responsibility and work to create a solution.\n\nAny questions will be handled at contact@YORI.nyc",
+    "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "nav_collections": [
+            "all",
+            "new-arrivals",
+            "mesh",
+            "garden-shop",
+            "denim-collection",
+            "crochet",
+            "shop-prints",
+            "tencel",
+            "expensive",
+            "cashmere"
+          ],
+          "nav_product_type_collections": [
+            "all",
+            "accessories-1",
+            "dresses",
+            "knitwear-1",
+            "pants",
+            "sets",
+            "shirting",
+            "shorts",
+            "skirts",
+            "tee-shop"
+          ]
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {}
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "newsletter_body": "Sign up for the newsletter for 10% off your first order"
+        }
+      },
+      "cart-drawer": {
+        "type": "cart-drawer",
+        "settings": {}
+      },
+      "reccomended-products": {
+        "type": "reccomended-products",
+        "settings": {}
+      }
+    },
+    "content_for_index": [],
+    "blocks": {
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      }
+    }
+  }
+}

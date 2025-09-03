@@ -1,0 +1,23 @@
+<div class="grid grid-cols-1 md:grid-cols-12 gap-[36px] md:gap-[16px] md:!h-screen">
+  {% render 'image',
+    image: page.metafields.custom.page_image,
+    class: 'h-[75vh] md:!h-screen w-full object-cover md:col-span-6 lg:col-span-7'
+  %}
+
+  <div
+    class="
+      flex flex-col self-end md:col-span-6 lg:col-span-5
+      text-center gap-[24px] px-[12px]
+       md:text-left md:gap-[30px] md:py-[24px] md:pr-[24px] md:pl-0
+    "
+  >
+    <h1 class="font-lg md:font-xxl">{{ page.title }}</h1>
+    <p class="font-sm md:font-sm">{{  page.metafields.custom.page_subtitle }}</p>
+  </div>
+</div>
+
+<div class=" text-twingreen px-page my-[48px] sm:my-[72px] grid grid-cols-1 md:grid-cols-12 ">
+  <div class="page-content">
+    {{ page.content }}
+  </div>
+</div>

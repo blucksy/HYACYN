@@ -1,0 +1,17 @@
+<a href="{{ collection.url }}">
+  <div class="outer w-full">
+    {% comment %} Image or  collection.image whichever is set {% endcomment %}
+    {% assign new_image = collection.image | default: image %}
+
+
+    <div class="aspect-w-3 aspect-h-2 z-0">
+      {% render 'image', image: new_image, class: 'w-full h-full object-cover' %}
+    </div>
+    <div class="w-full h-full bg-black/20 z-10"></div>
+
+    <div class="h-full w-full flex flex-col justify-end gap-[16px] text-white z-20 p-[16px]">
+      <p class="font-m-sm md:font-xs">{{ collection.products_count }} Products</p>
+      <p class="font-m-xxl md:font-xl">{{ collection.title }}</p>
+    </div>
+  </div>
+</a>

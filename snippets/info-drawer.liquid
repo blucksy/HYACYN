@@ -1,0 +1,13 @@
+<div>
+  <p class="font-xs">{{ title }}</p>
+  <div
+    class="
+      mt-[18px] flex gap-[12px]
+      {% unless across %} flex-col {% endunless %}
+    "
+  >
+    {% for link in links.links %}
+      <a href="{{ link.url }}" class="font-xs">{{ link.title }}</a>
+    {% endfor %}
+  </div>
+</div>

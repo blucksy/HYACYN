@@ -1,0 +1,93 @@
+<header-holder
+  class=" flex fixed top-0 w-full justify-between px-page z-30 py-[8px] sm:py-0 mt-[16px] items-center sm:items-start"
+>
+  <a href="/" class="w-[71px] sm:w-[110px] z-30">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 28" fill="none">
+      <path d="M15.099 27.9312H8.51741V2.45668H0V0.0684509H23.6165V2.45668H15.099V27.9312ZM36.4697 27.9312H34.1468L25.6293 0.0684509H32.2884L37.5151 17.7016H37.7473L43.9418 0.0684509H46.2648L54.2014 17.9006H54.4337L59.0796 0.0684509H61.6348L54.1627 27.9312H51.8398L43.5547 9.30293H43.3224L36.4697 27.9312ZM70.916 0.0684509V27.9312H64.3343V0.0684509H70.916ZM77.6743 27.9312H75.1583V0.0684509H77.6743L95.2517 18.3783H95.484V0.0684509H98V27.9312H95.484L77.9066 9.62142H77.6743V27.9312Z" fill="#002500"/>
+    </svg>
+  </a>
+  <div class="">
+    <div id="nav-menu" class=" pointer-events-auto sm:px-[12px] sm:py-[8px] sm:bg-white overflow-clip">
+      <div class="flex  gap-[16px]  font-xs justify-end items-center">
+        <button data-drawer="shop" class="hidden sm:block">Shop</button>
+        <button data-drawer="info" class="hidden sm:block">Information</button>
+        <button data-drawer="search" class="hidden sm:block">Search</button>
+        <button data-drawer="cart">
+          <div class="sm:hidden child:!w-[12px] child:!h-[18px]">{% render 'cart-icon' %}</div>
+
+          <p class="subheading hidden sm:block">
+            Cart
+            <span id="cart-item-count">
+              {% unless cart.item_count == 0 %}
+                ({{ cart.item_count }})
+              {% endunless -%}
+            </span>
+          </p>
+        </button>
+
+        <button
+          class="sm:hidden"
+          onclick="document.querySelector('mobile-menu').setAttribute('open', 'true')"
+        >
+          <svg width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line y1="0.5" x2="15" y2="0.5" stroke="#002500"/>
+            <line y1="5.5" x2="15" y2="5.5" stroke="#002500"/>
+            <line y1="10.5" x2="15" y2="10.5" stroke="#002500"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Drawer Sections -->
+      <div id="drawer-sections">
+        <div id="shop-drawer" class="drawer hidden flex flex-row gap-[12px]">
+          {% render 'collection-group',
+            title: 'Categories',
+            collections: section.settings.nav_product_type_collections
+          %}
+          {% render 'collection-group', title: 'Collections', collections: section.settings.nav_collections %}
+        </div>
+
+        <div id="info-drawer" class="drawer hidden">
+          {% render 'info-drawer', links: linklists.information %}
+        </div>
+
+        <div id="search-drawer" class="drawer hidden">
+          {% render 'search-drawer' %}
+        </div>
+
+        <div id="cart-drawer" class="drawer hidden"></div>
+      </div>
+    </div>
+  </div>
+
+  {% render 'mobile-menu',
+    collections: section.settings.nav_collections,
+    shop: section.settings.nav_product_type_collections
+  %}
+</header-holder>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Shop section"
+    },
+    {
+      "info": "The list of collections to be displayed in the nav",
+      "label": "Collections",
+      "limit": 10,
+      "type": "collection_list",
+      "id": "nav_collections"
+    },
+    {
+      "info": "The list of product type to be displayed in the nav",
+      "label": "Product Type Collections",
+      "limit": 10,
+      "type": "collection_list",
+      "id": "nav_product_type_collections"
+    }
+  ]
+}
+{% endschema %}

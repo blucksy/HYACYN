@@ -1,0 +1,267 @@
+<head>
+  <meta property="og:image" content="{{product.images[0] | img_url: "1200x" | replace_first: "//", "https://"}}">
+  <meta name="twitter:image" content="{{product.images[0] | img_url: "1200x" | replace_first: "//", "https://"}}">
+  <meta name="twitter:card" content="summary">
+ 
+</head>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var section = 'products';
+    var category = '{{ product.type | escape }}';
+
+    {% if product.collections.size > 0 %}
+      category = '{{ product.collections.first.title | escape }}';
+    {% endif %}
+
+    if (typeof EventTracker !== 'undefined' && typeof EventTracker.page_visit === 'function') {
+      EventTracker.page_visit({
+        section: section,
+        category: category
+      });
+    }
+  });
+</script>
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring -%}
+
+{% if pageUrl contains 'recently-viewed' %}
+  <div class="recently-viewed-card hidden">
+    {% render 'product-card', product: product | replace: '"', '&quot;' %}
+  </div>
+{% elsif pageUrl contains 'variantHelper=true' %}
+  {% render 'size-options' %}
+  {% render 'color-options' %}
+  {% render 'amounts-options' %}
+  {% render 'add-to-cart' %}
+{% else %}
+  <div id="pdp-swiper" class="swiper !h-fit  bg-twingreen/20">
+    <div class="swiper-wrapper !h-fit">
+      {% for image in product.images %}
+        <div class="swiper-slide !w-fit">
+          {% render 'image',
+            image: image,
+            alt: product.title,
+            class: 'object-center w-screen md:w-auto h-[125vw] md:min-h-[75vh]  md:h-[500px] object-cover'
+          %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+  // Track product view when the page loads
+  setTimeout(() => {
+    window.EventTracker.track('product_view', {
+      productId: '{{ product.id }}',
+      productName: '{{ product.title }}',
+      price: {{ product.price | divided_by: 100.0 }},
+      currency: '{{ shop.currency }}'
+    });
+  }, 1000);
+</script>
+  
+  <script>
+    const swiper = new Swiper('#pdp-swiper', {
+      mousewheel: {
+        forceToAxis: true,
+      },
+      slidesPerView: 'auto',
+    });
+  </script>
+
+  <div
+    class="
+      px-page grid relative
+      mt-[36px]
+      md:mt-[24px]  md:grid-cols-12 md:gap-[16px] md:gap-y-[48px]
+    "
+  >
+    <div class="md:col-span-6 text-center md:text-left">
+      <h1 class="font-lg">{{ product.title }}</h1>
+     
+    {% unless product.options.first == "Amounts"  %}<p class="md:hidden font-m-md mt-[12px]">{{ product.price | money | replace: '.00', '' }}</p>{%endunless%}
+    </div>
+
+    {% if product.options_by_name.Color.values and product.options_by_name.Color.values.size > 1 %}
+      {% render 'color-options' %}
+    {% endif %}
+
+    {% if product.options_by_name.['Size'].values %}
+      {% render 'size-options' %}
+    {% endif %}
+
+      {% if product.options_by_name.['Amounts'].values %}
+      {% render 'amounts-options' %}
+    {% endif %}
+
+    <div class="md:col-span-2">
+      {% render 'add-to-cart' %}
+    </div>
+
+    <description-switch
+      class="md:col-span-6 flex flex-col gap-[24px] mt-[36px] md:mt-0"
+    >
+      <div class="flex font-xs open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
+        <button
+          id="description"
+          open
+        >
+          Description
+        </button>
+        {% if product.metafields.twin.product_details.value %}
+          <button
+            id="details"
+          >
+            Product Details
+          </button>
+        {% endif %}
+        {% if product.metafields.twin.fabric_care.value %}
+          <button
+            id="materials"
+          >
+            Materials
+          </button>
+        {% endif %}
+        {% if product.metafields.custom.size_chart or settings.default_size_chart %}
+          <button
+            id="sizing"
+          >
+            Size Chart
+          </button>
+        {% endif %}
+
+        {% if product.metafields.custom.reviews.value %}
+          <button
+            id="reviews"
+          >
+            Reviews
+          </button>
+        {% endif %}
+      </div>
+      <div id="desc" class="outer">
+        <div id="description" open class="switch-item font-sm">{{ product.description }}</div>
+
+        {% if product.metafields.twin.product_details.value %}
+          <div id="details" class="switch-item ">
+            <p class="font-sm">{{ product.metafields.twin.product_details.value }}</p>
+          </div>
+        {% endif %}
+
+        {% if product.metafields.twin.fabric_care.value %}
+          <div id="materials" class="switch-item ">
+            <p class="font-sm">{{ product.metafields.twin.fabric_care.value }}</p>
+          </div>
+        {% endif %}
+        {% if product.metafields.custom.size_chart or settings.default_size_chart  %}
+          <div id="sizing" class="switch-item">
+            {% if product.metafields.custom.size_chart %}
+              {% render 'size-chart', chart: product.metafields.custom.size_chart %}
+            {% else %}
+              {% render 'size-chart', chart: settings.default_size_chart %}
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if product.metafields.custom.reviews.value %}
+          <div id="reviews" class="switch-item outer child:!pointer-events-none child:open:!pointer-events-auto">
+            {% for review in product.metafields.custom.reviews.value %}
+              <div
+                class="self-start w-full opacity-0  pointer-events-none open:pointer-events-auto open:opacity-100 duration-500 transition-opacity flex flex-col gap-[24px]"
+                {% if forloop.first %}
+                  open
+                {% endif %}
+              >
+                {% if review | split: '" - ' | size == 2 %}
+                  <p class="font-sm">{{ review | split: '" - ' | first }}"</p>
+                  <p class="font-xs">
+                    {{ review | split: '" - ' | last }}
+                  </p>
+                {% else %}
+                  <p class="font-sm">{{ review }}</p>
+                {% endif %}
+              </div>
+            {% endfor -%}
+          </div>
+        {% endif %}
+      </div>
+    </description-switch>
+
+    <description-switch
+      class="md:col-start-8 lg:col-start-9 md:col-end-13 flex flex-col gap-[24px]  mt-[36px] md:mt-0"
+      {% for info in metaobjects.product_info_links.values %}
+        data-{{ info.title | handle }}="{{ info.description }}"
+      {% endfor %}
+      data-rightVersion="true"
+    >
+      <div class="flex font-xs open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
+        {% for info in metaobjects.product_info_links.values %}
+          <button
+            id="{{ info.title | handle }}"
+            {% if forloop.first %}
+              open
+            {% endif %}
+          >
+            {{ info.title }}
+          </button>
+        {% endfor %}
+      </div>
+
+      <div id="desc" class="outer">
+        {% for info in metaobjects.product_info_links.values %}
+          <div
+            id="{{ info.title | handle }}"
+            class="switch-item"
+            {% if forloop.first %}
+              open
+            {% endif %}
+          >
+            <p class="font-sm !font-normal">{{ info.description }}</p>
+
+            {% if info.page %}
+              <div class="mt-[24px]">
+                <a href="{{ info.page.value.url }}" id="outbound" class="font-xs ">Learn More →</a>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </description-switch>
+  </div>
+  
+  {% section 'reccomended-products' %}
+  {% section 'newsletter' %}
+
+  {% liquid
+    assign collection_1 = null
+    assign collection_2 = null
+
+    for collection in product.collections
+      if collection.handle == 'all'
+        continue
+      endif
+
+      if collection_1 == null
+        assign collection_1 = collection
+      elsif collection_2 == null
+        assign collection_2 = collection
+      endif
+
+      if collection_1 and collection_2
+        break
+      endif
+    endfor
+  %}
+
+  {% if collection_1 and collection_2 %}
+    {% render 'collection-row',
+      collection_1: collection_1,
+      collection_1_image: collection_1.featured_image,
+      collection_2: collection_2,
+      collection_2_image: collection_2.featured_image,
+      title: 'See More'
+    %}
+  {% endif %}
+
+  {% render 'recently-viewed', current_url: product.url %}
+{% endif %}

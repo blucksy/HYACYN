@@ -1,0 +1,140 @@
+<style>
+  .hero-{{ section.id }} {
+      height: {{ section.settings.height }};
+      min-height: 300px;
+      align-items: {{ section.settings.align_y }};
+      overflow: hidden;
+  }
+
+  .hero-{{ section.id }}__content {
+      padding: 12px;
+      display: flex;
+      width: 88%;
+      color: {{ section.settings.text_color | default: '#ffffff' }};
+      gap: 7.5px;
+      flex-direction: column;
+      position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .hero-{{ section.id }}__content {
+      padding: 24px;
+      width: 42%;
+      gap: 24px;
+    }
+  }
+</style>
+
+<a href="{{section.settings.collection_link.url | default: "/collections/all"}}">
+  <div class="hero hero-{{ section.id }} outer">
+    {% if section.settings.mobile_hero_image or section.settings.hero_image %}
+      <div style="height: {{ section.settings.height  }}">
+        {% assign mobile = section.settings.mobile_hero_image | default: section.settings.hero_image %}
+
+        {% render 'image', image: mobile, class: 'w-full h-full sm:hidden object-cover z-0' %}
+
+        {% render 'image',
+          image: section.settings.hero_image,
+          class: 'w-full h-full hidden sm:block object-cover z-0'
+        %}
+      </div>
+    {% endif %}
+
+    <div class="hero-{{ section.id }}__content z-10">
+      <p class="font-xs">{{ section.settings.hero_subtitle }}</p>
+      <h2 class="page-title font-m-xl sm:font-xl">{{ section.settings.hero_title }}</h2>
+    </div>
+  </div>
+</a>
+
+{% schema %}
+{
+  "name": "Hero",
+  "presets": [
+    {
+      "name": "Hero section"
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "95svh", "label": "Full screen" },
+        { "value": "50vh", "label": "Half screen" },
+        { "value": "auto", "label": "Auto" }
+      ],
+      "default": "95svh"
+    },
+    {
+      "type": "radio",
+      "id": "text_color",
+      "label": "Text color",
+      "options": [
+        { "value": "#ffffff", "label": "White" },
+        { "value": "#002500", "label": "Green" }
+      ],
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_hero_image",
+      "label": "Mobile Hero Image"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "type": "select",
+      "id": "align_y",
+      "label": "Vertical Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" },
+        { "value": "space-between", "label": "Space between" }
+      ],
+      "default": "flex-end"
+    },
+    {
+      "info": "The subtitle of the Hero",
+      "label": "Hero Subtitle",
+      "type": "text",
+      "id": "hero_subtitle",
+      "default": "Shipping now"
+    },
+    {
+      "info": "The body text of the Hero",
+      "label": "Hero Title",
+      "type": "text",
+      "id": "hero_title",
+      "default": "Fall set bundle now available"
+    },
+    {
+      "type": "header",
+      "content": "Functionality"
+    },
+    // link to collection
+    {
+      "type": "collection",
+      "id": "collection_link",
+      "label": "Collection Link"
+    }
+  ]
+}
+{% endschema %}

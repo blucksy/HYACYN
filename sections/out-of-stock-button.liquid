@@ -1,0 +1,14 @@
+<restock-notify class="w-full    child:h-[46px] child:w-full child:flex child:justify-center child:items-center
+    mt-[12px]
+    md:mt-0">
+<div id="restock-button" class="bg-white  outline-twingreen outline outline-1 text-center  flex justify-center items-center cursor-pointer w-full h-full" >
+    <p class="font-xs w-full text-twingreen">Notify Me</p>
+</div>
+<div id="notify" class="hidden bg-white px-[12px] text-[twingreen/50] outline-twingreen outline outline-1 w-full relative">
+    <input id="emailInput" placeholder="Enter your Email:" class="font-xs text-twingreen w-full"/>
+    <button class="font-xs absolute right-[12px] w-min text-twingreen" id="emailSubmitButton" variant-id=
+    "{{product.selected_or_first_available_variant.id}}">GO</button>
+</div>
+</restock-notify>
+
+

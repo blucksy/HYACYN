@@ -1,0 +1,57 @@
+<div
+  class="product-recommendations"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&limit=4&product_id={{ product.id }}&intent=related"
+>
+  {%- if recommendations.performed? and recommendations.products_count > 0 -%}
+    {% render 'product-shelf', products: recommendations.products, title: 'You might also like' %}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Product recommendations",
+  "settings": []
+}
+{% endschema %}
+
+<script>
+  const handleIntersection = (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+
+    observer.unobserve(productRecommendationsSection);
+
+    const url = productRecommendationsSection.dataset.url;
+
+    fetch(url)
+      .then((response) => response.text())
+      .then((text) => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          productRecommendationsSection.innerHTML = recommendations.innerHTML;
+
+          // Extract and execute scripts manually
+          const scripts = recommendations.querySelectorAll('script');
+          scripts.forEach((script) => {
+            const newScript = document.createElement('script');
+            newScript.textContent = script.textContent;
+            document.body.appendChild(newScript);
+          });
+        }
+
+        if (recommendations.children[0].children[1].children === 0) {
+          document.getElementById('shopify-section-reccomended-products').remove();
+        }
+      })
+      .catch((e) => {
+        console.error(e);
+      });
+  };
+
+  const productRecommendationsSection = document.querySelector('.product-recommendations');
+  const observer = new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 200px 0px' });
+
+  observer.observe(productRecommendationsSection);
+</script>

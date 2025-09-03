@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Banner",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Banner Text",
+        "id": "banner_text"
+      }
+    ]
+  },
+  {
+    "name": "Default Size Chart",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Size Chart",
+        "id": "default_size_chart"
+      }
+    ]
+  }
+]

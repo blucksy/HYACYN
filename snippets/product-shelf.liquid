@@ -1,0 +1,64 @@
+<div class="w-screen px-page my-space">
+  <div class="flex justify-between items-end">
+    <p class="font-m-md sm:font-md ">
+      {{ title }}
+      {{ page.id }}
+    </p>
+    {% if collection.id %}
+      <a class="text-right" href="{{ collection.url }}">
+        <div class="font-xs">Explore {{ collection.title }} →</div>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="hidden md:grid grid-cols-4 gap-[16px] mt-[24px] sm:mt-[32px] ">
+    {% if collection.id %}
+      {% assign available_products = collection.products | where: 'available', true %}
+
+      {% for product in available_products limit: 8 %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    {% else %}
+      {% for product in products limit: 8 %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <div class="md:hidden mt-[18px] undo-px-page ">
+    <div id="{{title | replace: " ", "-"}}" class="swiper !h-fit !px-page">
+      <div class="swiper-wrapper  !h-fit">
+        {% if collection.id %}
+          {% assign available_products = collection.products | where: 'available', true %}
+
+          {% for product in available_products limit: 4 %}
+            <div class="swiper-slide card-page !h-fit">
+              {% render 'product-card', product: product %}
+            </div>
+          {% endfor %}
+        {% else %}
+          {% for product in products limit: 4 %}
+            <div class="swiper-slide card-page !h-fit">
+              {% render 'product-card', product: product %}
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  console.log('yeahh');
+
+  let title = '{{ title | replace: " ", "-" }}';
+  console.log(title);
+
+  new Swiper(`#${title}`, {
+    slidesPerView: 'auto',
+    spaceBetween: 6,
+    mousewheel: {
+      forceToAxis: true,
+    },
+  });
+</script>

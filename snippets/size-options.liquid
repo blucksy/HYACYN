@@ -1,0 +1,44 @@
+{% assign color_option = product.options_by_name.Color.position | minus: 1 %}
+{% assign size_option = product.options_by_name.Size.position | minus: 1 %}
+
+{% unless product.options.first == "Amounts"%}
+
+<option-holder
+  class="
+    flex items-center justify-center gap-[0px] mt-[24px]
+    md:justify-end md:col-span-4 md:h-[46px] md:mt-0 md:gap-[8px]
+  "
+  id="size-options"
+>
+  {% for size in product.options_with_values[size_option].values %}
+    {% liquid
+      assign variant_with_size = ''
+
+      for variant in product.variants
+        if variant.options[size_option] == size.name and variant.options[color_option] == product.selected_or_first_available_variant.options[color_option]
+          assign variant_with_size = variant
+          break
+        endif
+      endfor
+    %}
+
+    <button
+      data-new-variant="{{ variant_with_size.id }}"
+      class="
+          h-[36px] w-[36px] open:bg-twingreen open:text-white
+        md:h-auto md:w-auto open:md:bg-white open:md:text-twingreen
+          font-xs open:md:!underline data-[unavailable]:opacity-50 
+      "
+      {% if size.selected %}
+        open
+      {% endif %}
+      {% unless size.available %}
+        data-unavailable
+      {% endunless %}
+    >
+      {{ size }}
+    </button>
+  {% endfor %}
+</option-holder>
+
+{% endunless %}

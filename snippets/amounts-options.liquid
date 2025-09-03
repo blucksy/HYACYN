@@ -1,0 +1,41 @@
+{% assign amount_option = product.options_by_name.Amounts.position | minus: 1 %}
+
+{% if product.options.first == "Amounts"%}
+<option-holder
+  class="
+    flex items-center justify-center sm:gap-[0px] gap-[24px] flex-wrap gap-y-[6px] mt-[24px]
+    md:justify-end md:col-span-4 md:h-[46px] md:mt-0 md:gap-[8px]
+  "
+  id="size-options"
+>
+  {% for size in product.options_with_values[amount_option].values %}
+    {% liquid
+      assign variant_with_size = ''
+      for variant in product.variants
+        if variant.options[amount_option] == size.name
+          assign variant_with_size = variant
+          break
+        endif
+      endfor
+    %}
+
+    <button
+      data-new-variant="{{ variant_with_size.id }}"
+      class="
+          h-[36px]  open:bg-twingreen open:text-white
+        md:h-auto md:w-auto open:md:bg-white open:md:text-twingreen
+          font-xs open:md:!underline data-[unavailable]:opacity-50 
+      "
+      {% if size.selected %}
+        open
+      {% endif %}
+      {% unless size.available %}
+        data-unavailable
+      {% endunless %}
+    >
+      {{ size }}
+    </button>
+  {% endfor %}
+</option-holder>
+
+{% endif %}

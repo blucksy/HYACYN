@@ -1,0 +1,75 @@
+{% assign color_option = product.options_by_name.Color.position | minus: 1 %}
+{% assign size_option = product.options_by_name.Size.position | minus: 1 %}
+
+<div
+  class="
+    bg-white flex gap-[8px] h-fit items-center z-20 w-full justify-center mt-[24px]
+    md:absolute left-page top-[-49px] md:p-[10px] md:py-[5px] md:w-fit md:mt-0
+  "
+  id="color-options"
+>
+  <p class="font-m-sm md:font-xs">Color:</p>
+  <option-holder
+    class="
+      flex gap-[8px] items-end
+
+      md:h-[15px]
+    "
+  >
+    {% for color in product.options_with_values[color_option].values %}
+      {% liquid
+        assign color_option_name = 'option' | append: product.options_by_name.Color.position
+
+        assign variant_with_color = ''
+
+        for variant in product.variants
+          if variant.options[color_option] == color.name and variant.options[size_option] == product.selected_or_first_available_variant.options[size_option]
+            assign variant_with_color = variant
+            break
+          endif
+        endfor
+
+        assign image_position = 0
+
+        for image in product.images
+          if image == variant_with_color.image
+            assign image_position = forloop.index0
+            break
+          endif
+        endfor
+      %}
+      <button
+        data-new-variant="{{ variant_with_color.id }}"
+        data-image-index="{{ image_position }}"
+        class="
+          group relative flex justify-center data-[unavailable]:opacity-50 rounded-full
+          w-[21px] h-[21px]
+          md:w-[15px] md:h-[15px]
+        "
+        {% if color.selected %}
+          open
+        {% endif %}
+        {% unless color.available %}
+          data-unavailable
+        {% endunless %}
+      >
+        <div class="absolute pointer-events-none p-[5px] bg-white top-[-24px] opacity-0 group-hover:opacity-100 transition-opacity md:hidden">
+          <p class="font-xs whitespace-nowrap">{{ color.name }}</p>
+        </div>
+
+        <img
+          src="{{ variant_with_color.image | img_url: '100x' }}"
+          alt="{{ color.name }}"
+          height="15"
+          width="15"
+          class="
+            rounded-full  object-none border-white group-open:border-2 group-open:ring-1 ring-black
+
+                 w-[21px] h-[21px]
+            md:w-[15px] md:h-[15px]
+          "
+        >
+      </button>
+    {% endfor %}
+  </option-holder>
+</div>

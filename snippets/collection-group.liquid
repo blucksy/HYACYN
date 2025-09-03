@@ -1,0 +1,24 @@
+<div class="pt-[12px]">
+  <p class="font-xxs inactive">{{ title }}</p>
+  <div
+    class="
+      mt-[12px] flex gap-[12px]
+      {% unless across %} flex-col {% endunless %}
+    "
+  >
+    {% comment %} for proudct in collections {% endcomment %}
+
+    {% for product in collections %}
+      <a href="{{ product.url }}" class="font-xs">
+        {{- product.title }}
+        <span class="inactive">({{ product.products_count }})</span></a
+      >
+    {% endfor %}
+
+    {% comment %}
+      {% for link in links %}
+        <a href="{{ link.url }}" class="font-sm">{{ link.title }}</a>
+      {% endfor %}
+    {% endcomment %}
+  </div>
+</div>

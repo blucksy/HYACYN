@@ -1,0 +1,68 @@
+<mobile-menu class="hidden open:block sm:hidden bg-white w-screen dvh-full fixed top-0 left-0 py-[44px]">
+  <button class="fixed right-[12px] top-[27px]" id="close-menu">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.3573 14.3442C15.394 14.3809 15.4231 14.4244 15.4429 14.4723C15.4627 14.5202 15.4729 14.5715 15.4729 14.6234C15.4729 14.6752 15.4627 14.7265 15.4429 14.7744C15.423 14.8223 15.394 14.8658 15.3573 14.9025C15.3206 14.9391 15.2771 14.9682 15.2292 14.988C15.1813 15.0079 15.13 15.0181 15.0782 15.0181C15.0263 15.0181 14.975 15.0078 14.9271 14.988C14.8792 14.9682 14.8357 14.9391 14.7991 14.9024L7.97293 8.07635L1.1468 14.9024C1.07278 14.9765 0.972382 15.0181 0.867694 15.0181C0.763005 15.0181 0.662601 14.9765 0.588568 14.9025C0.514536 14.8285 0.47294 14.7281 0.472931 14.6234C0.472922 14.5187 0.514501 14.4183 0.58852 14.3442L7.41467 7.51807L0.58852 0.691886C0.514501 0.617854 0.472922 0.517449 0.472931 0.412761C0.472935 0.360924 0.48315 0.309596 0.502991 0.261707C0.522832 0.213818 0.551911 0.170306 0.588568 0.133656C0.625225 0.0970049 0.668743 0.0679332 0.716635 0.0481004C0.764527 0.0282676 0.815857 0.0180619 0.867694 0.0180664C0.972382 0.0180755 1.07278 0.0596714 1.1468 0.133704L7.97293 6.95979L14.7991 0.133704C14.8357 0.0970467 14.8792 0.0679675 14.9271 0.0481264C14.975 0.0282853 15.0263 0.0180709 15.0782 0.0180664C15.13 0.0180619 15.1813 0.0282676 15.2292 0.0481004C15.2771 0.0679332 15.3206 0.0970049 15.3573 0.133656C15.394 0.170306 15.423 0.213818 15.4429 0.261707C15.4627 0.309596 15.4729 0.360924 15.4729 0.412761C15.4729 0.464597 15.4627 0.515927 15.4429 0.56382C15.4231 0.611712 15.394 0.655229 15.3573 0.691886L8.53119 7.51807L15.3573 14.3442Z" fill="black"/>
+    </svg>
+  </button>
+
+  <div id="search-mobile" class="hidden open:block fixed pt-[22.5px] h-[50vh] px-page bg-white left-0 w-screen">
+    <search-widget class="cursor-pointer w-full  !text-twingreen  flex">
+      <input
+        type="text"
+        id="search"
+        class="font-m-xl black rounded-none w-full    focus:outline-none"
+        placeholder="Search for a product"
+      >
+      <button class=" right-0 font-m-xl" id="search-button">GO</button>
+    </search-widget>
+
+    <button
+      class="mt-[24px]"
+      onclick="document.querySelector('#search-mobile').removeAttribute('open')"
+    >
+      <p class="font-m-md">← Back</p>
+    </button>
+  </div>
+
+  <div class="pt-[32px] flex flex-col gap-[24px] px-page">
+    <div class="flex flex-col gap-[24px] group">
+      <button><p class="font-m-xl text-left">Shop</p></button>
+      <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
+        {% for collection in shop %}
+          <a href="{{ collection.url }}" class="font-m-md">
+            {{- collection.title }}
+            <span class="opacity-40">({{ collection.products_count }})</span></a
+          >
+        {% endfor %}
+      </div>
+    </div>
+    <div class="flex flex-col gap-[24px] group">
+      <button><p class="font-m-xl text-left">Collections</p></button>
+      <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
+        {% for collection in collections %}
+          <a href="{{ collection.url }}" class="font-m-md">{{ collection.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="flex flex-col gap-[24px] group">
+      <button><p class="font-m-xl text-left">Information</p></button>
+      <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
+        {% for link in linklists.information.links %}
+          <a href="{{ link.url }}" class="font-m-md">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <button
+      onclick="document.querySelector('#search-mobile').setAttribute('open', 'true')"
+    >
+      <p class="font-m-xl text-left">Search</p>
+    </button>
+    <button id="close-menu" onclick="document.querySelector('cart-drawer').openDrawer()">
+      <p
+        class="font-m-xl text-left"
+      >
+        Cart
+      </p>
+    </button>
+  </div>
+</mobile-menu>

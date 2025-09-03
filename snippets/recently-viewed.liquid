@@ -1,0 +1,97 @@
+<div class="px-page  my-space " id="recent-container">
+  <p class="pb-[24px] font-m-md sm:font-md">Recently Viewed</p>
+  <div class="recently-viewed grid grid-cols-2 sm:grid-cols-4 gap-[18px]" data-current="{{current_url}}"></div>
+</div>
+
+<script>
+  const recentlyViewedSection = document.querySelector('.recently-viewed');
+  const current_url = recentlyViewedSection.dataset.current;
+
+  // Function to get cart attributes
+  async function getCartAttributes() {
+    try {
+      const response = await fetch('/cart.js');
+      const cart = await response.json();
+
+      return cart.attributes.recentlyViewed ? JSON.parse(cart.attributes.recentlyViewed) : [];
+    } catch (error) {
+      console.error('Error fetching cart:', error);
+      return [];
+    }
+  }
+
+  // Function to update cart attributes
+  async function updateCartAttributes(recentlyViewed) {
+    try {
+      await fetch('/cart/update.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          attributes: {
+            recentlyViewed: JSON.stringify(recentlyViewed),
+          },
+        }),
+      });
+    } catch (error) {
+      console.error('Error updating cart attributes:', error);
+    }
+  }
+
+  async function loadRecentlyViewed() {
+    let recentlyViewed = await getCartAttributes();
+
+    // Remove current product from recently viewed
+    recentlyViewed = recentlyViewed.filter((url) => url !== current_url);
+
+    if (recentlyViewed.length === 0) {
+      document.getElementById('recent-container').classList.add('hidden');
+    } else {
+      let count = 0;
+      for (const url of recentlyViewed) {
+        if (count === 4) {
+          break;
+        }
+
+        try {
+          const response = await fetch(url + '?view=recently-viewed');
+          const text = await response.text();
+
+          const html = document.createElement('div');
+          html.innerHTML = text;
+
+          let card = html.querySelector('.recently-viewed-card');
+          console.log('html is', card);
+
+          if (!card) {
+            continue; // Skip if there's no product card
+          }
+
+          card.classList.remove('hidden');
+          recentlyViewedSection.appendChild(card);
+
+          // delte html
+          html.remove();
+
+          count++;
+        } catch (error) {
+          console.error('Error fetching product:', error);
+        }
+      }
+    }
+
+    // Add current product to recently viewed
+    recentlyViewed.unshift(current_url);
+
+    // Limit recently viewed to 10 items
+    if (recentlyViewed.length > 10) {
+      recentlyViewed = recentlyViewed.slice(0, 10);
+    }
+
+    // Save recently viewed to cart attributes
+    updateCartAttributes(recentlyViewed);
+  }
+
+  loadRecentlyViewed();
+</script>

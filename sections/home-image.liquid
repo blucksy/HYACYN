@@ -1,0 +1,27 @@
+<div class=" pt-[67px] svh-full w-screen pb-[18px]">
+  <a href="{{settings.active_collection.url}}">
+    <img
+      class="h-full w-full object-cover"
+      src="{{ section.settings.image | img_url: 'master' }}"
+      srcset="
+        {{ section.settings.image | img_url: '375x' }} 375w,
+        {{ section.settings.image | img_url: '750x' }} 750w,
+        {{ section.settings.image | img_url: '1280x' }} 1280w,
+        {{ section.settings.image | img_url: '2048x' }} 2048w,
+        {{ section.settings.image | img_url: '3240x' }} 3240w
+      ">
+  </a>
+</div>
+
+{% schema %}
+  {
+    "name": "Home Image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      }
+    ]
+  }
+{% endschema %}

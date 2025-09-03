@@ -1,0 +1,76 @@
+<div class="w-screen px-page grid grid-cols-16 gap-[16px] items-center my-space">
+  <div class="col-start-3 col-span-5">
+    <div class="aspect-w-7 aspect-h-10">
+      <img
+        id="{{ title | replace: " ", "-" }}-image"
+        src="/cdn/shop/{{ image.value | image_url: "master" }}"
+        srcset="
+          {%- assign default_sizes = '375,750,1280,2048,3240' | split: ',' -%}
+          {%- assign srcset_sizes = default_sizes -%}
+          {%- for size in srcset_sizes -%}
+            {{ image.value | image_url: width: size }} {{ size }}w{% if forloop.last == false %}, {% endif %}
+          {%- endfor -%}
+        "
+        alt="{{ title }}"
+        class="w-full object-cover bg-light"
+      >
+    </div>
+  </div>
+
+  <div class="col-start-10 col-span-5 rounded bg-light px-[18px] py-[24px] h-min">
+    <p class="subheading text-center mb-[36px]">{{ title }}</p>
+
+    <div id="product-container" class="flex flex-col gap-[18px]"></div>
+  </div>
+</div>
+
+<script>
+  let products = {{ products }};
+  let title = "{{ title }}";
+  
+  console.log(products);
+
+  // Function to update the main image when hovering over a row
+  function updateMainImage(newImageUrl) {
+    let element = document.getElementById(title.replace(' ', '-') + '-image');
+
+    element.src = "/cdn/shop/" + newImageUrl;
+    element.srcset = `
+      {%- assign default_sizes = '375,750,1280,2048,3240' | split: ',' -%}
+      {%- assign srcset_sizes = default_sizes -%}
+      {%- for size in srcset_sizes -%}
+        /cdn/shop/${newImageUrl}?width={{ size }} {{ size }}w{% if forloop.last == false %}, {% endif %}
+      {%- endfor -%}
+    `;
+  }
+
+  // Loop through each product
+  products.forEach(product => {
+    let url = `/recommendations/products?section_id=shop-the-look-helper&limit=0&product_id=${product.split('/').pop()}`;
+    
+    // Fetch product data from the constructed URL
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        // Add the fetched HTML data to the product container
+        document.getElementById('product-container').innerHTML += data;
+      }).then(() => {
+        // For each child of the product container, add a mouseover event listener
+        document.getElementById('product-container').childNodes.forEach(child => {
+          // if "SOLD" is in the text, ignore it
+          if (child.textContent.includes('SOLD')) return;
+
+          console.log(child.childNodes[1].dataset.image);
+
+          let imageUrl = child.childNodes[1].dataset.image;
+          
+          // Add mouseover event listener to update the main image
+          child.addEventListener('mouseover', () => {
+            if (imageUrl) {
+              updateMainImage(imageUrl);
+            }
+          });
+        });
+      }).catch(error => console.error('Error fetching product data:', error));
+  });
+</script>

@@ -1,0 +1,112 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "hero_VArbnF": {
+      "type": "hero",
+      "settings": {
+        "height": "95svh",
+        "text_color": "#002500",
+        "hero_image": "shopify://shop_images/hero_3.png",
+        "mobile_hero_image": "shopify://shop_images/hero_3.png",
+        "align_y": "flex-end",
+        "hero_subtitle": "the summer edit",
+        "hero_title": "in full bloom(er)",
+        "collection_link": "new-arrivals"
+      }
+    },
+    "product_row_kBXrfm": {
+      "type": "product-row",
+      "settings": {
+        "title": "New Arrivals",
+        "collection": "new-arrivals"
+      }
+    },
+    "split_collection_BtBcPa": {
+      "type": "split-collection",
+      "settings": {
+        "split_image": "shopify://shop_images/split3a_568256ad-d6de-4722-b0da-da01b58af7c7.png",
+        "split_subtitle": "lighter than linen",
+        "split_title": "tencel",
+        "collection_link": "tencel"
+      }
+    },
+    "split_collection_yqgCk7": {
+      "type": "split-collection",
+      "disabled": true,
+      "settings": {
+        "split_image": "shopify://shop_images/split3.png",
+        "split_subtitle": "do you play",
+        "split_title": "crochet?",
+        "collection_link": "crochet"
+      }
+    },
+    "newsletter_N8mMJh": {
+      "type": "newsletter",
+      "settings": {
+        "newsletter_body": "Sign up for the newsletter for 10% off your first order"
+      }
+    },
+    "see_more_6RYXqJ": {
+      "type": "see-more",
+      "settings": {
+        "title": "See More",
+        "collection_1": "dresses",
+        "collection_1_image": "shopify://shop_images/mod_3a.png",
+        "collection_2": "sets",
+        "collection_2_image": "shopify://shop_images/mod_3b.png"
+      }
+    },
+    "hero_gallery_nmTUVx": {
+      "type": "hero-gallery",
+      "blocks": {
+        "hero_66MWe6": {
+          "type": "hero",
+          "settings": {
+            "hero_image": "shopify://shop_images/bottomsplit3.png",
+            "mobile_hero_image": "shopify://shop_images/bottomsplit3.png",
+            "hero_subtitle": "not denim",
+            "hero_title": "denim",
+            "text_color": "#ffffff",
+            "collection_link": "denim-collection"
+          }
+        },
+        "hero_37AMrk": {
+          "type": "hero",
+          "settings": {
+            "hero_image": "shopify://shop_images/20250203_TWIN_03_0144.jpg",
+            "mobile_hero_image": "shopify://shop_images/20250203_TWIN_03_0144.jpg",
+            "hero_subtitle": "buttons optional",
+            "hero_title": "shirting",
+            "text_color": "#ffffff",
+            "collection_link": "shirting"
+          }
+        }
+      },
+      "block_order": [
+        "hero_66MWe6",
+        "hero_37AMrk"
+      ],
+      "settings": {
+        "height": "90svh",
+        "align_y": "flex-end"
+      }
+    }
+  },
+  "order": [
+    "hero_VArbnF",
+    "product_row_kBXrfm",
+    "split_collection_BtBcPa",
+    "split_collection_yqgCk7",
+    "newsletter_N8mMJh",
+    "see_more_6RYXqJ",
+    "hero_gallery_nmTUVx"
+  ]
+}

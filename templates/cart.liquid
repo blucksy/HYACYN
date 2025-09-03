@@ -1,0 +1,16 @@
+<div class="px-[18px] grid grid-cols-12 gap-[18px]">
+  <div class="col-span-12 md:col-span-6 md:col-start-4 lg:col-span-4 lg:col-start-5 pt-[142px] gap-[15px] flex flex-col">
+    <script>
+      window.onload = function() {
+        var cartDrawer = document.querySelector('cart-drawer');
+        cartDrawer.openDrawer()
+      }
+      // on click non cart drawer redirect to /categories/all
+      document.addEventListener('click', function(event) {
+        if (!event.target.closest('cart-drawer')) {
+          window.location.href = '/';
+        }
+      });
+    </script>
+  </div>
+</div>

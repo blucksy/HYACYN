@@ -1,0 +1,62 @@
+<cart-drawer
+  id="cart"
+  class="opacity-0 will-change-auto  dvh-full group  fixed  pointer-events-none justify-end w-screen top-0 left-0 open:block  open:!opacity-100 z-30 sm:z-20"
+>
+  <div class="hidden" id="item-count-helper">
+    {% unless cart.item_count == 0 %}
+      ({{ cart.item_count }})
+    {% endunless %}
+  </div>
+  {% form 'cart', cart %}
+    <div class="w-full dvh-full sm:!h-auto  sm:py-[16px] sm:px-[24px] z-20 sm:grid sm:grid-cols-12 gap-[16px]">
+      <div
+        id="drawer"
+        class="h-full bg-white pb-[8px] pt-[76px] sm:pt-[29px] px-[12px] flex flex-col gap-[16px] w-full group-open:pointer-events-auto md:col-start-8   lg:col-start-9 xl:col-start-10 col-end-13"
+      >
+        <a href="/" class="w-[71px] sm:w-[110px] z-30 fixed left-[12px] top-[24px] sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98 28" fill="none">
+            <path d="M15.099 27.9312H8.51741V2.45668H0V0.0684509H23.6165V2.45668H15.099V27.9312ZM36.4697 27.9312H34.1468L25.6293 0.0684509H32.2884L37.5151 17.7016H37.7473L43.9418 0.0684509H46.2648L54.2014 17.9006H54.4337L59.0796 0.0684509H61.6348L54.1627 27.9312H51.8398L43.5547 9.30293H43.3224L36.4697 27.9312ZM70.916 0.0684509V27.9312H64.3343V0.0684509H70.916ZM77.6743 27.9312H75.1583V0.0684509H77.6743L95.2517 18.3783H95.484V0.0684509H98V27.9312H95.484L77.9066 9.62142H77.6743V27.9312Z" fill="#002500"/>
+          </svg>
+        </a>
+        <button
+          class="fixed right-[12px] top-[27px] sm:hidden"
+          id="close"
+        >
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.3573 14.3442C15.394 14.3809 15.4231 14.4244 15.4429 14.4723C15.4627 14.5202 15.4729 14.5715 15.4729 14.6234C15.4729 14.6752 15.4627 14.7265 15.4429 14.7744C15.423 14.8223 15.394 14.8658 15.3573 14.9025C15.3206 14.9391 15.2771 14.9682 15.2292 14.988C15.1813 15.0079 15.13 15.0181 15.0782 15.0181C15.0263 15.0181 14.975 15.0078 14.9271 14.988C14.8792 14.9682 14.8357 14.9391 14.7991 14.9024L7.97293 8.07635L1.1468 14.9024C1.07278 14.9765 0.972382 15.0181 0.867694 15.0181C0.763005 15.0181 0.662601 14.9765 0.588568 14.9025C0.514536 14.8285 0.47294 14.7281 0.472931 14.6234C0.472922 14.5187 0.514501 14.4183 0.58852 14.3442L7.41467 7.51807L0.58852 0.691886C0.514501 0.617854 0.472922 0.517449 0.472931 0.412761C0.472935 0.360924 0.48315 0.309596 0.502991 0.261707C0.522832 0.213818 0.551911 0.170306 0.588568 0.133656C0.625225 0.0970049 0.668743 0.0679332 0.716635 0.0481004C0.764527 0.0282676 0.815857 0.0180619 0.867694 0.0180664C0.972382 0.0180755 1.07278 0.0596714 1.1468 0.133704L7.97293 6.95979L14.7991 0.133704C14.8357 0.0970467 14.8792 0.0679675 14.9271 0.0481264C14.975 0.0282853 15.0263 0.0180709 15.0782 0.0180664C15.13 0.0180619 15.1813 0.0282676 15.2292 0.0481004C15.2771 0.0679332 15.3206 0.0970049 15.3573 0.133656C15.394 0.170306 15.423 0.213818 15.4429 0.261707C15.4627 0.309596 15.4729 0.360924 15.4729 0.412761C15.4729 0.464597 15.4627 0.515927 15.4429 0.56382C15.4231 0.611712 15.394 0.655229 15.3573 0.691886L8.53119 7.51807L15.3573 14.3442Z" fill="black"/>
+          </svg>
+        </button>
+
+        <p class="font-xxs inactive">
+          Your Cart {% if cart.item_count == 0 %} Is Empty{% endif %}
+        </p>
+
+        {% if cart.item_count == 0 %}
+          <div class="flex justify-center bg-twingreen h-[46px] text-white items-center">
+            <a href="/collections/all" class="font-xs">Continue Shopping</a>
+          </div>
+
+        {% else %}
+          <div class="flex flex-col gap-[12px]">
+            {% for product in cart.items %}
+              {% render 'cart-item', item: product %}
+            {% endfor %}
+          </div>
+
+          <div class="flex justify-between">
+            <p class="font-xs">Subtotal</p>
+            <p class="font-xs">{{ cart.total_price | money | replace: '.00', '' }}</p>
+          </div>
+
+          <button
+            class="bg-twingreen h-[46px] text-white "
+            type="submit"
+            name="checkout"
+          >
+            <p class="text-center w-full font-xs">Checkout</p>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  {% endform %}
+</cart-drawer>

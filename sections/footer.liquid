@@ -1,0 +1,49 @@
+<footer class="w-screen px-page py-[24px] bg-twingreen text-white ">
+  <div class="flex flex-col md:flex-row justify-between">
+    <div class="grid grid-cols-3 gap-[6px]  md:flex md:gap-[48px] gap-y-[30px] ">
+      {% render 'link-group', title: 'Social Media', links: linklists.social.links %}
+
+      {% render 'link-group', title: 'Information', links: linklists.footer.links %}
+
+      {% render 'link-group', title: 'Policies', links: linklists.legal.links %}
+    </div>
+    <svg
+      width="96"
+      height="112"
+      viewBox="0 0 96 112"
+      fill="none"
+      class="flex md:hidden w-[30px] h-min pb-[24px] pt-[64px] md:pt-0"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M95.9045 111.624L95.9045 102.253C92.3318 102.268 88.7555 102.287 85.1792 102.305L85.1773 102.305C81.5697 102.324 77.9619 102.342 74.3578 102.357L74.2619 102.358L74.2619 102.262L74.2619 9.57672L74.2619 9.48118L74.3575 9.48118L95.9045 9.48119L95.9045 0.0959488L48.0005 0.341203L0.0964891 0.586464L0.183447 9.48117L21.6426 9.48117L21.7381 9.48117L21.7381 9.57671L21.7381 102.53L21.7381 102.625L21.643 102.625C18.0396 102.64 14.4325 102.659 10.8254 102.677L10.8218 102.677C7.24551 102.696 3.6692 102.714 0.0964722 102.729L0.139943 107.176L0.183429 111.624L95.9045 111.624ZM52.9814 9.52586L53.0769 9.52586L53.0769 9.62139L53.0769 102.842L53.0769 102.938L52.9813 102.938L42.6486 102.938L42.553 102.938L42.553 102.842L42.5531 9.62139L42.5531 9.52586L42.6486 9.52586L44.4183 9.52586L44.4183 9.48118L44.5138 9.48118L50.7164 9.48118L50.812 9.48118L50.812 9.52586L52.9814 9.52586Z" fill="#FFFBF4" stroke="#FFFBF4" stroke-width="0.191072"/>
+    </svg>
+    <div class="flex md:items-end flex-row justify-between md:justify-normal md:flex-col font-xs ">
+      <p class="font-small">© {{ 'now' | date: '%Y' }}, T.W.I.N. (That's What I Need)</p>
+      <a href="https://taw.vision" rel="noopener noreferrer" target="_blank" class="w-fit block">
+        <p class="font-small w-fit  md:pt-3 text-right w-full">Site Credit</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="flex flex-row justify-between items-end pt-[96px] hidden md:flex">
+    <p class="font-xl ">thats what i need</p>
+    <svg width="96" height="112" viewBox="0 0 96 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M95.9045 111.624L95.9045 102.253C92.3318 102.268 88.7555 102.287 85.1792 102.305L85.1773 102.305C81.5697 102.324 77.9619 102.342 74.3578 102.357L74.2619 102.358L74.2619 102.262L74.2619 9.57672L74.2619 9.48118L74.3575 9.48118L95.9045 9.48119L95.9045 0.0959488L48.0005 0.341203L0.0964891 0.586464L0.183447 9.48117L21.6426 9.48117L21.7381 9.48117L21.7381 9.57671L21.7381 102.53L21.7381 102.625L21.643 102.625C18.0396 102.64 14.4325 102.659 10.8254 102.677L10.8218 102.677C7.24551 102.696 3.6692 102.714 0.0964722 102.729L0.139943 107.176L0.183429 111.624L95.9045 111.624ZM52.9814 9.52586L53.0769 9.52586L53.0769 9.62139L53.0769 102.842L53.0769 102.938L52.9813 102.938L42.6486 102.938L42.553 102.938L42.553 102.842L42.5531 9.62139L42.5531 9.52586L42.6486 9.52586L44.4183 9.52586L44.4183 9.48118L44.5138 9.48118L50.7164 9.48118L50.812 9.48118L50.812 9.52586L52.9814 9.52586Z" fill="#FFFBF4" stroke="#FFFBF4" stroke-width="0.191072"/>
+    </svg>
+  </div>
+   
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "default": {
+    "blocks": []
+  }
+}
+{% endschema %}

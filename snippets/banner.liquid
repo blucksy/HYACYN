@@ -1,0 +1,44 @@
+<div
+  class="fixed bottom-0 left-0 right-0 z-50 px-page py-[24px] pointer-events-none opacity-0 group open:opacity-100 transition-opacity delay-500 duration-500"
+  id="banner"
+>
+  <div class="group-open:pointer-events-auto bg-twingreen text-white w-fit px-[12px] py-[8px] flex gap-[12px]">
+    <button>
+      <svg width="9" height="8" viewBox="0 0 9 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1.11538 8L0.5 7.38462L3.88462 4L0.5 0.615385L1.11538 0L4.5 3.38462L7.88462 0L8.5 0.615385L5.11538 4L8.5 7.38462L7.88462 8L4.5 4.61538L1.11538 8Z" fill="white"/>
+      </svg>
+    </button>
+    <p class="font-xs w-fit">
+      {{ settings.banner_text }}
+    </p>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const banner = document.getElementById('banner');
+    const hideBanner = localStorage.getItem('hide-banner');
+
+    banner.classList.remove('delay-500');
+
+    if (hideBanner) {
+      const hideBannerTime = new Date(hideBanner);
+      const currentTime = new Date();
+      const timeDifference = (currentTime - hideBannerTime) / (1000 * 60 * 60); // difference in hours
+
+      if (timeDifference < 1) {
+        banner.removeAttribute('open');
+      } else {
+        localStorage.removeItem('hide-banner');
+        banner.setAttribute('open', 'true');
+      }
+    } else {
+      banner.setAttribute('open', 'true');
+    }
+
+    banner.querySelector('button').addEventListener('click', function () {
+      localStorage.setItem('hide-banner', new Date().toISOString());
+      banner.removeAttribute('open');
+    });
+  });
+</script>

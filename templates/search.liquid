@@ -1,0 +1,72 @@
+<div class="my-space px-page pt-[54px] md:pt-0">
+  {% comment %} Product count and title {% endcomment %}
+  <div class="flex flex-col gap-[12px]">
+    <p class="font-m-xs sm:font-sm text-center">({{ search.results.size }} Products)</p>
+    <p class="font-m-xxl sm:font-xxl text-center">results for {{ search.terms }}</p>
+  </div>
+
+  {% if search.results.size > 0 %}
+    {% paginate search.results by 24 %}
+      <div
+        class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[6px] sm:gap-x-[16px] gap-y-[12px] md:gap-y-[16px] mt-[36px] md:mt-[72px]"
+        id="product-grid"
+        data-current-page="{{ paginate.current_page }}"
+        data-total-pages="{{ paginate.pages }}"
+        style="transition: opacity 300ms"
+      >
+        {% for result in search.results %}
+          <div id="product-{{ forloop.index }}-{{ paginate.current_page }}">
+            {% render 'product-card', product: result %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endpaginate %}
+  {% else %}
+    <div class="col-span-5 md:mt-[36px] text-center">
+      <p class="page-title">Sorry, there are no results for your search.</p>
+    </div>
+  {% endif %}
+</div>
+
+<script>
+  // Infinite Scroll (same as collection page)
+  const productGrid = document.getElementById('product-grid');
+  let currentPage = parseInt(productGrid.dataset.currentPage);
+  const totalPages = parseInt(productGrid.dataset.totalPages);
+  let isLoading = false;
+
+  const getPaginatedUrl = (page) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page);
+    return url.toString();
+  };
+
+  const fetchAndAppendProducts = (page) => {
+    return fetch(getPaginatedUrl(page))
+      .then((response) => response.text())
+      .then((html) => {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newProducts = doc.querySelectorAll('#product-grid > *');
+
+        newProducts.forEach((product) => {
+          productGrid.appendChild(product);
+        });
+      });
+  };
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY + window.innerHeight >= document.body.scrollHeight - 300 && !isLoading) {
+      if (currentPage < totalPages) {
+        isLoading = true;
+        currentPage++;
+        fetchAndAppendProducts(currentPage).then(() => {
+          isLoading = false;
+          if (currentPage > 1) {
+            window.history.pushState({ page: currentPage }, '', getPaginatedUrl(currentPage));
+          }
+        });
+      }
+    }
+  });
+</script>

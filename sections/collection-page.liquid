@@ -1,0 +1,181 @@
+<div class="my-space sm:my-0 !mt-0 px-page pt-[84px] md:pt-[96px] transition-opacity duration-500" id="collection-page">
+  {% comment %} get product count {% endcomment %}
+  <div class="flex flex-col gap-[12px]">
+    <p class="font-m-xs sm:font-sm text-center">({{ collection.products_count }} Products)</p>
+    <p class="font-m-xxl sm:font-xxl text-center">{{ collection.title }}</p>
+  </div>
+  {% if collection.description != '' %}
+    <div class="mt-[16px] grid w-4/5 sm:w-2/5 mx-auto">
+      <div class="font-m-xs sm:font-sm text-center">{{ collection.description }}</div>
+    </div>
+  {% endif %}
+
+  {% if section.settings.nav_collections.size > 0 %}
+    <div class="flex justify-center gap-[6px] mt-[24px]">
+      {% for button in section.settings.nav_collections %}
+        <a href="{{ button.url }}">
+          <div class="font-small-cta">
+            {{ button.title }}
+            <span class="superscript align-top text-[9px] ml-[3px]">{{ button.products_count }}</span>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% paginate collection.products by 24 %}
+    <div
+      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[6px] sm:gap-x-[16px] gap-y-[12px] sm:gap-y-[16px] mt-[36px] md:mt-[72px]"
+      id="product-grid"
+      data-current-page="{{ paginate.current_page }}"
+      data-total-pages="{{ paginate.pages }}"
+      style="transition: opacity 300ms"
+    >
+      {% for product in collection.products %}
+        {% assign id_value = 'page-' | append: paginate.current_page %}
+
+        {% render 'product-card', product: product, id: id_value %}
+      {% endfor %}
+    </div>
+  {% endpaginate %}
+
+  {% render 'collection-control' %}
+</div>
+
+{% liquid
+  assign collection_1 = null
+  assign collection_2 = null
+
+  for cur_collect in collection.products.first.collections
+    if cur_collect.handle == 'all' or cur_collect.id == collection.id
+      continue
+    endif
+
+    if collection_1 == null
+      assign collection_1 = cur_collect
+    elsif collection_2 == null
+      assign collection_2 = cur_collect
+    endif
+
+    if collection_1 and collection_2
+      break
+    endif
+  endfor
+%}
+
+{% if collection_1 and collection_2 %}
+  {% render 'collection-row',
+    collection_1: collection_1,
+    collection_1_image: collection_1.featured_image,
+    collection_2: collection_2,
+    collection_2_image: collection_2.featured_image,
+    title: 'See More'
+  %}
+{% endif %}
+
+<script>
+  const productGrid = document.getElementById('product-grid');
+  let currentPage = parseInt(productGrid.dataset.currentPage);
+  const totalPages = parseInt(productGrid.dataset.totalPages);
+
+  // Infinite scroll event listener
+  let isLoading = false;
+
+  // Function to get the current URL with the correct page query
+  const getPaginatedUrl = (page) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('page', page); // Set the URL page parameter
+    return url.toString();
+  };
+
+  // Function to fetch and prepend products from a specific page
+  const fetchAndPrependProducts = async (page) => {
+    const response = await fetch(getPaginatedUrl(page));
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const newProducts = doc.querySelectorAll('#product-grid > *');
+
+    Array.from(newProducts)
+      .reverse()
+      .forEach((product) => {
+        productGrid.insertBefore(product, productGrid.firstChild);
+      });
+  };
+
+  const fetchAndAppendProducts = async (page) => {
+    const response = await fetch(getPaginatedUrl(page));
+    const html = await response.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const newProducts = doc.querySelectorAll('#product-grid > *');
+
+    Array.from(newProducts).forEach((product) => {
+      productGrid.appendChild(product);
+    });
+  };
+
+  // Load previous pages on initial load
+  const loadPreviousPages = async () => {
+    // hide #product-grid
+    document.getElementById('collection-page').style.opacity = '0';
+
+    isLoading = true;
+
+    console.log('loading');
+
+    for (let page = currentPage - 1; page >= 1; page--) {
+      await fetchAndPrependProducts(page);
+    }
+
+    // scroll to initial position
+    document.getElementById('page-' + currentPage).scrollIntoView();
+
+    console.log('scrolled to page' + currentPage);
+
+    // show #collection-page
+    document.getElementById('collection-page').style.opacity = '1';
+
+    isLoading = false;
+
+    console.log('done');
+  };
+
+  // Initial load of previous pages
+  if (currentPage > 1) {
+    loadPreviousPages();
+  }
+
+  window.addEventListener('scroll', () => {
+    if (
+      window.scrollY + window.innerHeight >= document.getElementById('collection-page').offsetHeight - 300 &&
+      !isLoading
+    ) {
+      if (currentPage < totalPages) {
+        isLoading = true;
+        currentPage++;
+        fetchAndAppendProducts(currentPage).then(() => {
+          isLoading = false;
+
+          // Update URL history for pagination
+          if (currentPage > 1) {
+            window.history.pushState({ page: currentPage }, '', getPaginatedUrl(currentPage));
+          }
+        });
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Page",
+  "settings": [
+    {
+      "type": "collection_list",
+      "id": "nav_collections",
+      "label": "Collection Buttons"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+<div class="my-[104px] flex flex-col gap-10 lg:static mx-auto">
+  <div class="flex relative mx-auto lg:absolute pl-0 lg:pl-[10vw] flex-col">
+    <h1 class="uppercase font-bold text-[23px]">{{ page.title }}</h1>
+    <h2 class="uppercase font-bold text-[13px]">{{ page.published_at | date: '%B %d, %Y' }}</h2>
+  </div>
+  <div class="flex mx-auto w-[70vw] lg:!w-[41.8vw] flex-col gap-[7px]">
+    {{ page.content }}
+  </div>
+</div>

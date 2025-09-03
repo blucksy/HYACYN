@@ -1,0 +1,63 @@
+{% assign color_option = product.options_by_name.Color.position | minus: 1 %}
+
+<a href="{{ product.url }}" id="{{ id }}">
+  <div class="group">
+    <div class="relative aspect-w-8 aspect-h-11 overflow-hidden">
+      {% assign first_image = product.images.first %}
+      {% assign second_image = product.images[1] %}
+
+      <!-- Primary Image -->
+      {% render 'image',
+        image: first_image,
+        alt: product.title,
+        class: 'object-cover transition-opacity duration-300 ease-in-out'
+      %}
+
+      {% if second_image %}
+        <!-- Secondary Image (Appears on Hover) -->
+        {% render 'image',
+          image: second_image,
+          alt: product.title,
+          class: 'object-cover absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out'
+        %}
+      {% endif %}
+    </div>
+
+    <div class="mt-[12px] sm:mt-[16px] flex flex-col gap-[6px] sm:gap-[10px] text-center">
+      <p class="font-m-xs sm:font-sm capitalize">{{ product.title }}</p>
+
+      <div class="outer">
+        <p class="font-m-xs sm:font-xs">{{ product.price | money | replace: '.00', '' }}</p>
+        {% if product.options_by_name.Color.values.size > 1 %}
+          <div class="bg-white w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex justify-center gap-[4px]">
+            {% for color in product.options_with_values[color_option].values %}
+              {% liquid
+                assign color_option_name = 'option' | append: product.options_by_name.Color.position
+
+                assign variant_with_color = ''
+
+                for variant in product.variants
+                  if variant.options[color_option] == color.name and variant.options[size_option] == product.selected_or_first_available_variant.options[size_option]
+                    assign variant_with_color = variant
+                    break
+                  endif
+                endfor
+              %}
+
+              <img
+                src="{{ variant_with_color.image | img_url: '100x' }}"
+                alt="{{ color.name }}"
+                height="12"
+                width="12"
+                class="
+                  rounded-full  object-none
+                  w-[12px] h-[12px]
+                "
+              >
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</a>

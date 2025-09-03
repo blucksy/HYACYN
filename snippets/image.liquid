@@ -1,0 +1,14 @@
+{%- assign default_sizes = '375,750,1280,2048,3240' | split: ',' -%}
+{%- assign srcset_sizes = srcset | split: ',' | default: default_sizes -%}
+
+<img
+  src="{{ image | image_url: "master" }}"
+  srcset="
+    {%- for size in srcset_sizes -%}
+      {{ image | image_url: width: size }} {{ size }}w{% if forloop.last == false %}, {% endif %}
+    {%- endfor -%}
+  "
+  alt="{{ alt | escape }}"
+  loading="{% if loadFirst %}eager{% else %}lazy{% endif %}"
+  class="{{ class }}"
+>

@@ -1,0 +1,100 @@
+<style>
+  .split-{{ section.id }} {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 24px;
+
+    position: relative;
+  }
+
+  .split-{{ section.id }}__content {
+    display: flex;
+    gap:24px;
+    justify-content: flex-end gap: 7.5px;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 768px) {
+    .split-{{ section.id }} {
+      flex-direction: row;
+      justify-content: flex-start;
+      position: relative;
+      height:100vh;
+      overflow: hidden;
+    }
+
+    .split-{{ section.id }}__content {
+      width: 42%;
+      justify-content: flex-end;
+      display: flex;
+      flex-basis: 50%;
+      gap: 24px;
+      padding-bottom:24px;
+    }
+  }
+</style>
+
+<a href="{{section.settings.collection_link.url | default: "/collections/all"}}">
+  <div class="split split-{{ section.id }} px-page my-space w-full">
+    {% render 'image',
+      image: section.settings.split_image,
+      alt: section.settings.split_title,
+      class: 'md:w-1/2 object-cover'
+    %}
+
+    <div class="split-{{ section.id }}__content w-full">
+      <p class="font-xs">{{ section.settings.split_subtitle }}</p>
+      <h2 class="page-title font-m-xxl sm:font-xxl w-full">{{ section.settings.split_title }}</h2>
+
+      <div class="font-xs">Explore {{ section.settings.collection_link.title }} →</div>
+    </div>
+  </div>
+</a>
+
+{% schema %}
+{
+  "name": "Split Collection",
+  "presets": [
+    {
+      "name": "Split Collection"
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "split_image",
+      "label": "split Image"
+    },
+    {
+      "type": "header",
+      "content": "Text"
+    },
+    {
+      "info": "The subtitle of the split",
+      "label": "split Subtitle",
+      "type": "text",
+      "id": "split_subtitle",
+      "default": "Shipping now"
+    },
+    {
+      "info": "The body text of the split",
+      "label": "split Title",
+      "type": "text",
+      "id": "split_title",
+      "default": "Fall set bundle now available"
+    },
+    {
+      "type": "header",
+      "content": "Functionality"
+    },
+    {
+      "type": "collection",
+      "id": "collection_link",
+      "label": "Collection Link"
+    }
+  ]
+}
+{% endschema %}

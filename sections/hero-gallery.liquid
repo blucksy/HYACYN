@@ -1,0 +1,166 @@
+<style>
+  .hero-{{ section.id }} {
+      height: {{ section.settings.height }};
+      min-height: 300px;
+      align-items: {{ section.settings.align_y }};
+      overflow: hidden;
+  }
+
+  .hero-{{ section.id }}__content {
+      padding: 12px;
+      display: flex;
+      width: 88%;
+
+      color: {{ section.settings.text_color | default: '#ffffff' }};
+      gap: 7.5px;
+      flex-direction: column;
+      position: relative;
+  }
+
+  @media (min-width: 768px) {
+    .hero-{{ section.id }}__content {
+      padding: 24px;
+      width: 42%;
+      gap: 24px;
+    }
+  }
+</style>
+
+<div class="relative" id="swiper-{{ section.id }}" style="height: {{ section.settings.height  }}">
+  <div class="swiper-wrapper">
+    {% for block in section.blocks %}
+      <a
+        style="height: {{ section.settings.height  }}"
+        class="swiper-slide w-screen"
+        href="{{block.settings.collection_link.url | default: "/collections/all"}}"
+      >
+        <div style="height: {{ section.settings.height  }}" class="hero hero-{{ section.id }} outer">
+          {% if block.settings.mobile_hero_image or block.settings.hero_image %}
+            <div style="height: {{ section.settings.height  }}">
+              {% assign mobile = block.settings.mobile_hero_image | default: block.settings.hero_image %}
+              {% render 'image', image: mobile, class: 'w-full h-full sm:hidden object-cover z-0' %}
+
+              {% render 'image',
+                image: block.settings.hero_image,
+                class: 'w-full h-full hidden sm:block object-cover z-0'
+              %}
+            </div>
+          {% endif %}
+
+          <div class="hero-{{ section.id }}__content z-10">
+            <p class="font-xs">{{ block.settings.hero_subtitle }}</p>
+            <h2 class="page-title font-m-xl sm:font-xl">{{ block.settings.hero_title }}</h2>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+
+  <div
+    class="absolute p-[24px] pb-[4px] pr-[16px] sm:pr-[24px] sm:pb-[18px] bottom-0 flex justify-end swiper-pagination-{{ section.id }} z-10 child:!mx-0 gap-[4px]"
+  ></div>
+</div>
+
+<script>
+  new Swiper(`#swiper-{{section.id}}`, {
+    effect: 'fade',
+    loop: true,
+    pagination: {
+      el: '.swiper-pagination-{{section.id}}',
+      clickable: true,
+      type: 'bullets',
+    },
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: true,
+    },
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Hero Gallery",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Height",
+      "options": [
+        { "value": "90svh", "label": "Full screen" },
+        { "value": "50vh", "label": "Half screen" },
+        { "value": "auto", "label": "Auto" }
+      ],
+      "default": "90svh"
+    },
+    {
+      "type": "select",
+      "id": "align_y",
+      "label": "Default Vertical Alignment",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" },
+        { "value": "space-between", "label": "Space between" }
+      ],
+      "default": "flex-end"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero",
+      "name": "Hero",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "hero_image",
+          "label": "Hero Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_hero_image",
+          "label": "Mobile Hero Image"
+        },
+        {
+          "type": "text",
+          "id": "hero_subtitle",
+          "label": "Hero Subtitle",
+          "default": "Shipping now"
+        },
+        {
+          "type": "text",
+          "id": "hero_title",
+          "label": "Hero Title",
+          "default": "Fall set bundle now available"
+        },
+        {
+          "type": "select",
+          "id": "text_color",
+          "label": "Text Color",
+          "options": [
+            { "value": "#ffffff", "label": "White" },
+            { "value": "#002500", "label": "Green" }
+          ],
+          "default": "#ffffff"
+        },
+        {
+          "type": "collection",
+          "id": "collection_link",
+          "label": "Collection Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Gallery",
+      "blocks": [
+        {
+          "type": "hero"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

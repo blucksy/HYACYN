@@ -1,0 +1,24 @@
+{% render 'product-shelf', collection: section.settings.collection, title: section.settings.title %}
+
+{% schema %}
+{
+  "name": "Product Row",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Row"
+    }
+  ]
+}
+{% endschema %}
