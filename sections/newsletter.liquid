@@ -1,7 +1,7 @@
 {% form 'customer' %}
   <div class="my-space px-page grid grid-cols-1 md:grid-cols-12 gap-[16px] gap-y-[48px] {% if request.page_type == "product" %}bg-twingreen text-white py-[48px] {% endif %}">
     <div class="md:col-span-6 lg:col-span-5">
-      <p class="font-m-xl xl:w-3/4  {% if request.page_type == "product" %}md:font-lg{% else %}md:font-xl{% endif %}">
+      <p class=" xl:w-3/4  {% if request.page_type == "product" %}{% else %}md:font-xl{% endif %}">
         {{ section.settings.newsletter_body }}
       </p>
     </div>
@@ -10,17 +10,17 @@
         <input
           type="email"
            name="contact[email]"
-          class="font-sm focus:outline-none  w-3/4 {% if request.page_type == "product" %}bg-twingreen !text-white placeholder:!text-white {% else %}!text-twingreen {% endif %}"
+          class=" focus:outline-none  w-3/4 {% if request.page_type == "product" %}bg-twingreen !text-white placeholder:!text-white {% else %}!text-twingreen {% endif %}"
           placeholder="Enter your email address">
-        <button class="font-sm " type="submit">Submit</button>
+        <button class=" " type="submit">Submit</button>
       </div>
       {% if form.posted_successfully? %}
-        <p class="font-xs pt-[16px]">Thank you for signing up</p>
+        <p class=" pt-[16px]">Thank you for signing up</p>
       {% else %}
-        <p class="font-xs pt-[16px]">By entering your information to TWIN you agree to our Privacy Policy.</p>
+        <p class=" pt-[16px]">By entering your information to TWIN you agree to our Privacy Policy.</p>
       {% endif %}
       {% if form.errors %}
-      <p class="font-xs pt-[16px]">{{ form.errors | default_errors }}</p>
+      <p class=" pt-[16px]">{{ form.errors | default_errors }}</p>
       {% endif %}
     </div>
   </div>

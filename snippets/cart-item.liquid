@@ -11,21 +11,21 @@
     <div class="col-span-3 flex justify-between gap-[12px]">
       <div class="flex flex-col gap-[12px] justify-between">
         <div class="flex flex-col gap-[12px]">
-          <p class="font-xs">{{ item.product.title }}</p>
-          <p class="font-xs">{{ item.variant.title }}</p>
+          <p class="">{{ item.product.title }}</p>
+          <p class="">{{ item.variant.title }}</p>
         </div>
         <remove-button class=" w-fit">
-          <a class="font-xs" href="{{ item.url_to_remove }}">Remove</a>
+          <a class="" href="{{ item.url_to_remove }}">Remove</a>
         </remove-button>
       </div>
 
       <div class="flex gap-[9px]">
         {% if item.final_line_price != item.original_line_price %}
-          <p class="font-xs opacity-50 line-through">
+          <p class=" opacity-50 line-through">
             {{ item.original_line_price | money | replace: '.00', '' }}
           </p>
         {% endif %}
-        <p class="font-xs">{{ item.final_line_price | money | replace: '.00', '' }}</p>
+        <p class="">{{ item.final_line_price | money | replace: '.00', '' }}</p>
       </div>
     </div>
   </div>

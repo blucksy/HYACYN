@@ -80,7 +80,7 @@
     <div class="md:col-span-6 text-center md:text-left">
       <h1 class="font-lg">{{ product.title }}</h1>
      
-    {% unless product.options.first == "Amounts"  %}<p class="md:hidden font-m-md mt-[12px]">{{ product.price | money | replace: '.00', '' }}</p>{%endunless%}
+    {% unless product.options.first == "Amounts"  %}<p class="md:hidden -md mt-[12px]">{{ product.price | money | replace: '.00', '' }}</p>{%endunless%}
     </div>
 
     {% if product.options_by_name.Color.values and product.options_by_name.Color.values.size > 1 %}
@@ -102,7 +102,7 @@
     <description-switch
       class="md:col-span-6 flex flex-col gap-[24px] mt-[36px] md:mt-0"
     >
-      <div class="flex font-xs open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
+      <div class="flex  open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
         <button
           id="description"
           open
@@ -140,17 +140,17 @@
         {% endif %}
       </div>
       <div id="desc" class="outer">
-        <div id="description" open class="switch-item font-sm">{{ product.description }}</div>
+        <div id="description" open class="switch-item ">{{ product.description }}</div>
 
         {% if product.metafields.twin.product_details.value %}
           <div id="details" class="switch-item ">
-            <p class="font-sm">{{ product.metafields.twin.product_details.value }}</p>
+            <p class="">{{ product.metafields.twin.product_details.value }}</p>
           </div>
         {% endif %}
 
         {% if product.metafields.twin.fabric_care.value %}
           <div id="materials" class="switch-item ">
-            <p class="font-sm">{{ product.metafields.twin.fabric_care.value }}</p>
+            <p class="">{{ product.metafields.twin.fabric_care.value }}</p>
           </div>
         {% endif %}
         {% if product.metafields.custom.size_chart or settings.default_size_chart  %}
@@ -173,12 +173,12 @@
                 {% endif %}
               >
                 {% if review | split: '" - ' | size == 2 %}
-                  <p class="font-sm">{{ review | split: '" - ' | first }}"</p>
-                  <p class="font-xs">
+                  <p class="">{{ review | split: '" - ' | first }}"</p>
+                  <p class="">
                     {{ review | split: '" - ' | last }}
                   </p>
                 {% else %}
-                  <p class="font-sm">{{ review }}</p>
+                  <p class="">{{ review }}</p>
                 {% endif %}
               </div>
             {% endfor -%}
@@ -194,7 +194,7 @@
       {% endfor %}
       data-rightVersion="true"
     >
-      <div class="flex font-xs open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
+      <div class="flex  open:child:opacity-100 open:child:font-bold child:opacity-40 gap-[12px]">
         {% for info in metaobjects.product_info_links.values %}
           <button
             id="{{ info.title | handle }}"
@@ -216,11 +216,11 @@
               open
             {% endif %}
           >
-            <p class="font-sm !font-normal">{{ info.description }}</p>
+            <p class=" !font-normal">{{ info.description }}</p>
 
             {% if info.page %}
               <div class="mt-[24px]">
-                <a href="{{ info.page.value.url }}" id="outbound" class="font-xs ">Learn More →</a>
+                <a href="{{ info.page.value.url }}" id="outbound" class=" ">Learn More →</a>
               </div>
             {% endif %}
           </div>

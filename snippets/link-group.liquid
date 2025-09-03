@@ -1,5 +1,5 @@
 <div>
-  <p class="font-xs">{{ title }}</p>
+  <p class="">{{ title }}</p>
   <div
     class="
       mt-[24px] flex gap-[16px]
@@ -7,7 +7,7 @@
     "
   >
     {% for link in links %}
-      <a href="{{ link.url }}" class="font-m-sm md:font-sm">{{ link.title }}</a>
+      <a href="{{ link.url }}" class="-sm md:">{{ link.title }}</a>
     {% endfor %}
   </div>
 </div>

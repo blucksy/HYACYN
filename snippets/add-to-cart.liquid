@@ -20,7 +20,7 @@
         document.querySelector('cart-drawer').addObjectToCart(formData);
       "
     >
-  <p class="font-xs">Add to Cart{%unless product.options.first == "Amounts"%} -  {{ product.price | money | replace: '.00', '' }}{%endunless%}</p>
+  <p class="">Add to Cart{%unless product.options.first == "Amounts"%} -  {{ product.price | money | replace: '.00', '' }}{%endunless%}</p>
     </button>
   {% else %}
   {%section 'out-of-stock-button'%}

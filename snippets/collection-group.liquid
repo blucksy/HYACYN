@@ -9,7 +9,7 @@
     {% comment %} for proudct in collections {% endcomment %}
 
     {% for product in collections %}
-      <a href="{{ product.url }}" class="font-xs">
+      <a href="{{ product.url }}" class="">
         {{- product.title }}
         <span class="inactive">({{ product.products_count }})</span></a
       >
@@ -17,7 +17,7 @@
 
     {% comment %}
       {% for link in links %}
-        <a href="{{ link.url }}" class="font-sm">{{ link.title }}</a>
+        <a href="{{ link.url }}" class="">{{ link.title }}</a>
       {% endfor %}
     {% endcomment %}
   </div>

@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@media (max-width: 767px) {
-  .heading {
-    font-size: 38px;
-  }
-}
-
 @view-transition {
   navigation: auto;
+}
+
+* {
+  /* desktop-text */
+  font-family: "Helvetica Neue";
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 113%; /* 12.43px */
+  text-transform: uppercase !important;
 }
 
 .body ul {
@@ -27,123 +31,6 @@
 }
 
 /* typography */
-@layer components {
-  .font-xxl {
-    font-family: "sofia-pro", sans-serif;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 88px;
-    line-height: 81%; /* 71.28px */
-    letter-spacing: -3.52px;
-    margin-top: -12px;
-  }
-  .font-xs {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 13px; /* 91.667% */
-    letter-spacing: -0.3px;
-    margin-top: -2px;
-  }
-  .font-m-xxl {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 84%; /* 40.32px */
-    letter-spacing: -1.92px;
-    margin-top: -6px;
-  }
-  .font-m-xl {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 32px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 84%; /* 26.88px */
-    letter-spacing: -1.28px;
-    margin-top: -4px;
-  }
-  .font-m-md {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 22px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 88%; /* 19.36px */
-    letter-spacing: -0.88px;
-    margin-top: -3px;
-  }
-  .font-m-sm {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 16px; /* 100% */
-    letter-spacing: -0.96px;
-    margin-top: -3px;
-    margin-bottom: -1px;
-  }
-  .font-m-xs {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 13px; /* 108.333% */
-    letter-spacing: -0.72px;
-    margin-top: -3px;
-    margin-bottom: -1px;
-  }
-  .font-lg {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 88%;
-    letter-spacing: -1.6px;
-    margin-top: -6px;
-  }
-  .font-sm {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 99%; /* 17.82px */
-    letter-spacing: -0.72px;
-    margin-top: -4px;
-    margin-bottom: -1px;
-  }
-  .font-md {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 36px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 88%; /* 31.68px */
-    letter-spacing: -1.44px;
-    margin-top: -6px;
-  }
-  .font-xxs {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 11px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 12px; /* 108.333% */
-    letter-spacing: -0.72px;
-    margin-top: -2px;
-  }
-  .font-xl {
-    font-family: "sofia-pro", sans-serif;
-    font-size: 56px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 82%; /* 45.92px */
-    letter-spacing: -2.24px;
-    margin-top: -8px;
-  }
-}
-
-.heading {
-  @apply font-m-xxl sm:font-xxl;
-}
 
 /* Units */
 
@@ -226,7 +113,7 @@ form {
 /* Article */
 
 .article-content * {
-  @apply !font-sm md:!font-md text-left !block !m-0 !text-twingreen !max-w-none !p-0 !h-auto;
+  @apply text-left !block !m-0 !text-twingreen !max-w-none !p-0 !h-auto;
   aspect-ratio: auto !important;
   background: none !important;
 }
@@ -293,21 +180,14 @@ form {
   @apply text-left  !m-0 !text-twingreen !max-w-none !p-0 !h-auto grid flex-col gap-[12px] md:col-span-6 lg:col-span-7;
 }
 
-.page-content h1 {
-  @apply font-m-xxl sm:font-xxl;
-}
 .page-content > h2 {
-  @apply font-m-xl sm:font-xl;
 }
 .page-content > h3 {
-  @apply font-m-md sm:font-md;
 }
 
 .page-content > p {
-  @apply font-xs sm:font-sm;
 }
 .page-content > div {
-  @apply font-xs sm:font-sm;
 }
 
 .page-content a {
@@ -320,20 +200,12 @@ form {
   @apply py-[86px] sm:py-[116px];
 }
 
-.shopify-policy__title {
-  @apply !font-lg sm:!font-xxl;
-}
-
 .shopify-policy__body {
   @apply mt-[48px] sm:mt-[72px];
 }
 
 .shopify-policy__body > div {
   @apply flex flex-col gap-[24px];
-}
-
-.shopify-policy__body * {
-  @apply font-sm;
 }
 
 .dvh-full {

@@ -1,12 +1,12 @@
 <div class="my-space sm:my-0 !mt-0 px-page pt-[84px] md:pt-[96px] transition-opacity duration-500" id="collection-page">
   {% comment %} get product count {% endcomment %}
   <div class="flex flex-col gap-[12px]">
-    <p class="font-m-xs sm:font-sm text-center">({{ collection.products_count }} Products)</p>
-    <p class="font-m-xxl sm:font-xxl text-center">{{ collection.title }}</p>
+    <p class="-xs text-center">({{ collection.products_count }} Products)</p>
+    <p class=" text-center">{{ collection.title }}</p>
   </div>
   {% if collection.description != '' %}
     <div class="mt-[16px] grid w-4/5 sm:w-2/5 mx-auto">
-      <div class="font-m-xs sm:font-sm text-center">{{ collection.description }}</div>
+      <div class="-xs  text-center">{{ collection.description }}</div>
     </div>
   {% endif %}
 

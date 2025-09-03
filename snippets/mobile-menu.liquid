@@ -10,26 +10,26 @@
       <input
         type="text"
         id="search"
-        class="font-m-xl black rounded-none w-full    focus:outline-none"
+        class=" black rounded-none w-full    focus:outline-none"
         placeholder="Search for a product"
       >
-      <button class=" right-0 font-m-xl" id="search-button">GO</button>
+      <button class=" right-0 " id="search-button">GO</button>
     </search-widget>
 
     <button
       class="mt-[24px]"
       onclick="document.querySelector('#search-mobile').removeAttribute('open')"
     >
-      <p class="font-m-md">← Back</p>
+      <p class="-md">← Back</p>
     </button>
   </div>
 
   <div class="pt-[32px] flex flex-col gap-[24px] px-page">
     <div class="flex flex-col gap-[24px] group">
-      <button><p class="font-m-xl text-left">Shop</p></button>
+      <button><p class=" text-left">Shop</p></button>
       <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
         {% for collection in shop %}
-          <a href="{{ collection.url }}" class="font-m-md">
+          <a href="{{ collection.url }}" class="-md">
             {{- collection.title }}
             <span class="opacity-40">({{ collection.products_count }})</span></a
           >
@@ -37,29 +37,29 @@
       </div>
     </div>
     <div class="flex flex-col gap-[24px] group">
-      <button><p class="font-m-xl text-left">Collections</p></button>
+      <button><p class=" text-left">Collections</p></button>
       <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
         {% for collection in collections %}
-          <a href="{{ collection.url }}" class="font-m-md">{{ collection.title }}</a>
+          <a href="{{ collection.url }}" class="-md">{{ collection.title }}</a>
         {% endfor %}
       </div>
     </div>
     <div class="flex flex-col gap-[24px] group">
-      <button><p class="font-m-xl text-left">Information</p></button>
+      <button><p class=" text-left">Information</p></button>
       <div class="hidden gap-[18px] flex-col pl-[16px] group-open:flex">
         {% for link in linklists.information.links %}
-          <a href="{{ link.url }}" class="font-m-md">{{ link.title }}</a>
+          <a href="{{ link.url }}" class="-md">{{ link.title }}</a>
         {% endfor %}
       </div>
     </div>
     <button
       onclick="document.querySelector('#search-mobile').setAttribute('open', 'true')"
     >
-      <p class="font-m-xl text-left">Search</p>
+      <p class=" text-left">Search</p>
     </button>
     <button id="close-menu" onclick="document.querySelector('cart-drawer').openDrawer()">
       <p
-        class="font-m-xl text-left"
+        class=" text-left"
       >
         Cart
       </p>

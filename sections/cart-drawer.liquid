@@ -33,7 +33,7 @@
 
         {% if cart.item_count == 0 %}
           <div class="flex justify-center bg-twingreen h-[46px] text-white items-center">
-            <a href="/collections/all" class="font-xs">Continue Shopping</a>
+            <a href="/collections/all" class="">Continue Shopping</a>
           </div>
 
         {% else %}
@@ -44,8 +44,8 @@
           </div>
 
           <div class="flex justify-between">
-            <p class="font-xs">Subtotal</p>
-            <p class="font-xs">{{ cart.total_price | money | replace: '.00', '' }}</p>
+            <p class="">Subtotal</p>
+            <p class="">{{ cart.total_price | money | replace: '.00', '' }}</p>
           </div>
 
           <button
@@ -53,7 +53,7 @@
             type="submit"
             name="checkout"
           >
-            <p class="text-center w-full font-xs">Checkout</p>
+            <p class="text-center w-full ">Checkout</p>
           </button>
         {% endif %}
       </div>
