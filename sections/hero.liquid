@@ -66,7 +66,6 @@
       "label": "Height",
       "options": [
         { "value": "95svh", "label": "Full screen" },
-        { "value": "50vh", "label": "Half screen" },
         { "value": "auto", "label": "Auto" }
       ],
       "default": "95svh"
@@ -74,10 +73,10 @@
     {
       "type": "radio",
       "id": "text_color",
-      "label": "Text color",
+      "label": "Navigation color",
       "options": [
         { "value": "#ffffff", "label": "White" },
-        { "value": "#002500", "label": "Green" }
+        { "value": "#000000", "label": "Black" }
       ],
       "default": "#ffffff"
     },
@@ -95,46 +94,6 @@
       "id": "mobile_hero_image",
       "label": "Mobile Hero Image"
     },
-    {
-      "type": "header",
-      "content": "Text"
-    },
-    {
-      "type": "select",
-      "id": "align_y",
-      "label": "Vertical Alignment",
-      "options": [
-        { "value": "flex-start", "label": "Top" },
-        { "value": "center", "label": "Middle" },
-        { "value": "flex-end", "label": "Bottom" },
-        { "value": "space-between", "label": "Space between" }
-      ],
-      "default": "flex-end"
-    },
-    {
-      "info": "The subtitle of the Hero",
-      "label": "Hero Subtitle",
-      "type": "text",
-      "id": "hero_subtitle",
-      "default": "Shipping now"
-    },
-    {
-      "info": "The body text of the Hero",
-      "label": "Hero Title",
-      "type": "text",
-      "id": "hero_title",
-      "default": "Fall set bundle now available"
-    },
-    {
-      "type": "header",
-      "content": "Functionality"
-    },
-    // link to collection
-    {
-      "type": "collection",
-      "id": "collection_link",
-      "label": "Collection Link"
-    }
   ]
 }
 {% endschema %}

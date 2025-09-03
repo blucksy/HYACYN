@@ -6,9 +6,8 @@
   </a>
 
 <header-holder
-  class="w-[464px] fixed bottom-5"
+  class="w-[464px] fixed bottom-5 left-0 right-0 mx-auto"
 >
-  <div class="">
     <div id="nav-menu" class="text-white pointer-events-auto sm:px-[12px] sm:py-[8px] sm:bg-black overflow-clip">
       <div class="flex  gap-[16px]   justify-end items-center">
         <button data-drawer="shop" class="hidden sm:block">Shop</button>
@@ -60,7 +59,7 @@
         <div id="cart-drawer" class="drawer hidden"></div>
       </div>
     </div>
-  </div>
+
 
   {% render 'mobile-menu',
     collections: section.settings.nav_collections,
