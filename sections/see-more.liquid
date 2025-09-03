@@ -1,9 +1,9 @@
 {% render 'collection-row',
-  title: section.settings.title,
+
   collection_1: section.settings.collection_1,
-  collection_1_image: section.settings.collection_1_image,
+
   collection_2: section.settings.collection_2,
-  collection_2_image: section.settings.collection_2_image
+
 %}
 
 {% schema %}
@@ -16,31 +16,15 @@
   ],
   "settings": [
     {
-      "label": "Title",
-      "type": "text",
-      "id": "title",
-      "default": "See More"
-    },
-    {
       "label": "Collection 1",
       "type": "collection",
       "id": "collection_1"
-    },
-    {
-      "label": "Collection 1 Image",
-      "type": "image_picker",
-      "id": "collection_1_image"
     },
     {
       "label": "Collection 2",
       "type": "collection",
       "id": "collection_2"
     },
-    {
-      "label": "Collection 2 Image",
-      "type": "image_picker",
-      "id": "collection_2_image"
-    }
   ]
 }
 {% endschema %}
