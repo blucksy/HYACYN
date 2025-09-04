@@ -1,4 +1,4 @@
-<div class="w-screen px-page my-space">
+<div class="my-space">
   <div class="flex justify-between items-end">
     <p class="-md sm:font-md ">
       {{ title }}
@@ -11,7 +11,7 @@
     {% endif %}
   </div>
 
-  <div class="hidden md:grid grid-cols-4 gap-[16px] mt-[24px] sm:mt-[32px] ">
+  <div class="hidden md:grid grid-cols-4  ">
     {% if collection.id %}
       {% assign available_products = collection.products | where: 'available', true %}
 
@@ -25,27 +25,7 @@
     {% endif %}
   </div>
 
-  <div class="md:hidden mt-[18px] undo-px-page ">
-    <div id="{{title | replace: " ", "-"}}" class="swiper !h-fit !px-page">
-      <div class="swiper-wrapper  !h-fit">
-        {% if collection.id %}
-          {% assign available_products = collection.products | where: 'available', true %}
 
-          {% for product in available_products limit: 4 %}
-            <div class="swiper-slide card-page !h-fit">
-              {% render 'product-card', product: product %}
-            </div>
-          {% endfor %}
-        {% else %}
-          {% for product in products limit: 4 %}
-            <div class="swiper-slide card-page !h-fit">
-              {% render 'product-card', product: product %}
-            </div>
-          {% endfor %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>

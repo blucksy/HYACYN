@@ -23,11 +23,11 @@
       {% endif %}
     </div>
 
-    <div class="mt-[12px] sm:mt-[16px] flex flex-col gap-[6px] sm:gap-[10px] text-center">
+    <div class="flex flex-col mt-[12px] text-center">
       <p class="-xs sm: capitalize">{{ product.title }}</p>
 
-      <div class="outer">
-        <p class="-xs sm:">{{ product.price | money | replace: '.00', '' }}</p>
+      <div class="outer text-secondary">
+        <p class="-xs sm:">{{ product.price | money }}</p>
         {% if product.options_by_name.Color.values.size > 1 %}
           <div class="bg-white w-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out flex justify-center gap-[4px]">
             {% for color in product.options_with_values[color_option].values %}

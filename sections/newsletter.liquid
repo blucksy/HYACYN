@@ -1,4 +1,4 @@
-{% form 'customer' %}
+{% comment %} {% form 'customer' %}
   <div class="my-space px-page grid grid-cols-1 md:grid-cols-12 gap-[16px] gap-y-[48px] {% if request.page_type == "product" %}bg-twingreen text-white py-[48px] {% endif %}">
     <div class="md:col-span-6 lg:col-span-5">
       <p class=" xl:w-3/4  {% if request.page_type == "product" %}{% else %}md:font-xl{% endif %}">
@@ -25,23 +25,7 @@
     </div>
   </div>
 {% endform %}
+{% endcomment %}
 
-{% schema %}
-  {
-    "name": "Newsletter Section",
-    "presets": [
-      {
-        "name": "Newsletter Section"
-      }
-    ],
-    "settings": [
-      {
-        "info": "The text of the newsletter section",
-        "label": "Newsletter text",
-        "type": "text",
-        "id": "newsletter_body",
-        "default": "Sign up for the newsletter for 20% off your first order"
-      }
-    ]
-  }
-{% endschema %}
+
+

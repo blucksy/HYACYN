@@ -10,6 +10,9 @@
   .border-secondary {
     @apply border-white/15;
   }
+  .text-secondary {
+    @apply text-[#A8A8A8];
+  }
 }
 
 * {
@@ -63,13 +66,13 @@
 /* Rest */
 
 html {
-  @apply bg-white text-twingreen;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 .outer {
   display: grid;
+
   grid-template: 1fr / 1fr;
 }
 .outer > * {
@@ -94,7 +97,6 @@ form {
 
 :root {
   --swiper-theme-color: #000 !important;
-  --swiper-pagination-color: #002500;
 
   --swiper-pagination-progressbar-size: 2px;
   --swiper-pagination-progressbar-bg-color: none;

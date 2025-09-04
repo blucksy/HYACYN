@@ -1,9 +1,6 @@
-<div class="my-space sm:my-0 !mt-0 px-page pt-[84px] md:pt-[96px] transition-opacity duration-500" id="collection-page">
+<div class="my-space sm:my-0 !mt-0 transition-opacity duration-500" id="collection-page">
   {% comment %} get product count {% endcomment %}
-  <div class="flex flex-col gap-[12px]">
-    <p class="-xs text-center">({{ collection.products_count }} Products)</p>
-    <p class=" text-center">{{ collection.title }}</p>
-  </div>
+
   {% if collection.description != '' %}
     <div class="mt-[16px] grid w-4/5 sm:w-2/5 mx-auto">
       <div class="-xs  text-center">{{ collection.description }}</div>
@@ -25,7 +22,7 @@
 
   {% paginate collection.products by 24 %}
     <div
-      class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[6px] sm:gap-x-[16px] gap-y-[12px] sm:gap-y-[16px] mt-[36px] md:mt-[72px]"
+      class="grid grid-cols-4 gap-y-6"
       id="product-grid"
       data-current-page="{{ paginate.current_page }}"
       data-total-pages="{{ paginate.pages }}"
