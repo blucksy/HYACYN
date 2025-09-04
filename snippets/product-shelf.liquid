@@ -11,10 +11,9 @@
     {% endif %}
   </div>
 
-  <div class="hidden md:grid grid-cols-4  ">
+  <div class="hidden md:grid grid-cols-4 gap-y-6 ">
     {% if collection.id %}
       {% assign available_products = collection.products | where: 'available', true %}
-
       {% for product in available_products limit: 8 %}
         {% render 'product-card', product: product %}
       {% endfor %}

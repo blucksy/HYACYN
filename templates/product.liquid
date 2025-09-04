@@ -146,28 +146,6 @@
             {% endif %}
           </div>
         {% endif %}
-
-        {% if product.metafields.custom.reviews.value %}
-          <div id="reviews" class="switch-item outer child:!pointer-events-none child:open:!pointer-events-auto">
-            {% for review in product.metafields.custom.reviews.value %}
-              <div
-                class="self-start w-full opacity-0  pointer-events-none open:pointer-events-auto open:opacity-100 duration-500 transition-opacity flex flex-col gap-[24px]"
-                {% if forloop.first %}
-                  open
-                {% endif %}
-              >
-                {% if review | split: '" - ' | size == 2 %}
-                  <p class="">{{ review | split: '" - ' | first }}"</p>
-                  <p class="">
-                    {{ review | split: '" - ' | last }}
-                  </p>
-                {% else %}
-                  <p class="">{{ review }}</p>
-                {% endif %}
-              </div>
-            {% endfor -%}
-          </div>
-        {% endif %}
       </div>
     </description-switch>
 
@@ -212,6 +190,27 @@
       </div>
     </description-switch>
   </div>
+
+
+  {% if product.images.size > 2 %}
+    <div class="grid grid-cols-2 ">
+      {% for image in product.images offset: 2 %}
+  {% comment %} every 3 items col span 2 {% endcomment %}
+  {% if forloop.index0 != 0 and forloop.index0 % 3 == 0 %}
+    {% assign col_span = 'col-span-1 w-full' %}
+  {% else %}
+    {% assign col_span = 'col-span-2 w-full' %}
+  {% endif %}
+
+  {% render 'image',
+    image: image,
+    alt: product.title,
+    class: col_span
+  %}
+{% endfor %}
+    </div>
+  {% endif %}
+
   
   {% section 'reccomended-products' %}
   {% section 'newsletter' %}
