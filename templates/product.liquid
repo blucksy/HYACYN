@@ -2,8 +2,8 @@
   <meta property="og:image" content="{{product.images[0] | img_url: "1200x" | replace_first: "//", "https://"}}">
   <meta name="twitter:image" content="{{product.images[0] | img_url: "1200x" | replace_first: "//", "https://"}}">
   <meta name="twitter:card" content="summary">
- 
 </head>
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     var section = 'products';
@@ -35,20 +35,18 @@
   {% render 'amounts-options' %}
   {% render 'add-to-cart' %}
 {% else %}
-  <div id="pdp-swiper" class="swiper !h-fit  bg-twingreen/20">
-    <div class="swiper-wrapper !h-fit">
-      {% for image in product.images %}
-        <div class="swiper-slide !w-fit">
-          {% render 'image',
-            image: image,
+  <div class="grid grid-cols-2">
+        {% render 'image',
+            image: product.images[0],
             alt: product.title,
-            class: 'object-center w-screen md:w-auto h-[125vw] md:min-h-[75vh]  md:h-[500px] object-cover'
-          %}
-        </div>
-      {% endfor %}
-    </div>
-  </div>
-
+            class: 'object-cover w-full'
+          %} 
+          {% render 'image',
+            image: product.images[1],
+            alt: product.title,
+            class: 'object-cover w-full'
+          %} 
+</div>
   <script>
   // Track product view when the page loads
   setTimeout(() => {
@@ -60,23 +58,9 @@
     });
   }, 1000);
 </script>
-  
-  <script>
-    const swiper = new Swiper('#pdp-swiper', {
-      mousewheel: {
-        forceToAxis: true,
-      },
-      slidesPerView: 'auto',
-    });
-  </script>
-
-  <div
-    class="
-      px-page grid relative
-      mt-[36px]
-      md:mt-[24px]  md:grid-cols-12 md:gap-[16px] md:gap-y-[48px]
-    "
-  >
+<div
+    class="px-page grid relative md:grid-cols-12 md:gap-[16px]
+    ">
     <div class="md:col-span-6 text-center md:text-left">
       <h1 class="font-lg">{{ product.title }}</h1>
      

@@ -1,6 +1,9 @@
-<div class="px-page  my-space " id="recent-container">
-  <p class="pb-[24px] -md sm:font-md">Recently Viewed</p>
-  <div class="recently-viewed grid grid-cols-2 sm:grid-cols-4 gap-[18px]" data-current="{{current_url}}"></div>
+<div class="my-space py-6" id="recent-container">
+  <div class="flex justify-between items-end">
+    <p class="-md sm:font-md pb-4 pl-10">Recently Viewed</p>
+    <!-- Add explore link if needed -->
+  </div>
+  <div class="hidden md:grid grid-cols-4 recently-viewed" data-current="{{current_url}}"></div>
 </div>
 
 <script>
@@ -53,27 +56,18 @@
         if (count === 4) {
           break;
         }
-
         try {
           const response = await fetch(url + '?view=recently-viewed');
           const text = await response.text();
-
           const html = document.createElement('div');
           html.innerHTML = text;
-
           let card = html.querySelector('.recently-viewed-card');
-          console.log('html is', card);
-
           if (!card) {
-            continue; // Skip if there's no product card
+            continue;
           }
-
           card.classList.remove('hidden');
           recentlyViewedSection.appendChild(card);
-
-          // delte html
           html.remove();
-
           count++;
         } catch (error) {
           console.error('Error fetching product:', error);
